@@ -324,6 +324,9 @@ export class User extends jspb.Message {
   getStatusUser(): proto_enum_pb.StatusUser;
   setStatusUser(value: proto_enum_pb.StatusUser): User;
 
+  getUsername(): string;
+  setUsername(value: string): User;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): User.AsObject;
   static toObject(includeInstance: boolean, msg: User): User.AsObject;
@@ -345,6 +348,7 @@ export namespace User {
     updateAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     updateBy: string,
     statusUser: proto_enum_pb.StatusUser,
+    username: string,
   }
 }
 

@@ -2424,7 +2424,8 @@ proto.pb.User.toObject = function(includeInstance, msg) {
     createBy: jspb.Message.getFieldWithDefault(msg, 8, ""),
     updateAt: (f = msg.getUpdateAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     updateBy: jspb.Message.getFieldWithDefault(msg, 10, ""),
-    statusUser: jspb.Message.getFieldWithDefault(msg, 11, 0)
+    statusUser: jspb.Message.getFieldWithDefault(msg, 11, 0),
+    username: jspb.Message.getFieldWithDefault(msg, 12, "")
   };
 
   if (includeInstance) {
@@ -2507,6 +2508,10 @@ proto.pb.User.deserializeBinaryFromReader = function(msg, reader) {
     case 11:
       var value = /** @type {!proto.pb.StatusUser} */ (reader.readEnum());
       msg.setStatusUser(value);
+      break;
+    case 12:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setUsername(value);
       break;
     default:
       reader.skipField();
@@ -2614,6 +2619,13 @@ proto.pb.User.serializeBinaryToWriter = function(message, writer) {
   if (f !== 0.0) {
     writer.writeEnum(
       11,
+      f
+    );
+  }
+  f = message.getUsername();
+  if (f.length > 0) {
+    writer.writeString(
+      12,
       f
     );
   }
@@ -2872,6 +2884,24 @@ proto.pb.User.prototype.getStatusUser = function() {
  */
 proto.pb.User.prototype.setStatusUser = function(value) {
   return jspb.Message.setProto3EnumField(this, 11, value);
+};
+
+
+/**
+ * optional string username = 12;
+ * @return {string}
+ */
+proto.pb.User.prototype.getUsername = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 12, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.pb.User} returns this
+ */
+proto.pb.User.prototype.setUsername = function(value) {
+  return jspb.Message.setProto3StringField(this, 12, value);
 };
 
 
