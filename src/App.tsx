@@ -8,8 +8,10 @@ import { Timestamp } from 'google-protobuf/google/protobuf/timestamp_pb';
 import { Box, Button } from '@mui/material';
 import { ThemeCustomProvider, useThemeCustom } from './theme/theme-context';
 import Router from './routes/route';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
+import { KEY_STORAGE } from './constants/common';
+import Auth from './auth/auth';
 
 function App() {
   // const { colors, handleChangeTheme } = useThemeCustom();
@@ -60,11 +62,13 @@ function App() {
 
   return (
     <>
-      <ThemeCustomProvider>
-        <BrowserRouter>
-          <Router />
-        </BrowserRouter>
-      </ThemeCustomProvider>
+      <BrowserRouter>
+        <ThemeCustomProvider>
+          <Auth>
+            <Router />
+          </Auth>
+        </ThemeCustomProvider>
+      </BrowserRouter>
     </>
   );
 }

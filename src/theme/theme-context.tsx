@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { darkTheme, ThemeColors, lightTheme, ThemeType } from './color';
-import { STORAGEKEY } from '../config/storage-key';
+import { KEY_STORAGE } from '../constants/common';
 
 interface ThemeContextType {
   colors: ThemeColors;
@@ -10,7 +10,7 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeCustomProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const storedTheme = localStorage.getItem(STORAGEKEY.THEME);
+  const storedTheme = localStorage.getItem(KEY_STORAGE.THEME);
   const initialTheme = storedTheme === '0' ? darkTheme : lightTheme;
 
   const [theme, setTheme] = useState<ThemeColors>(initialTheme);
@@ -18,7 +18,7 @@ export const ThemeCustomProvider: React.FC<{ children: ReactNode }> = ({ childre
   const handleChangeTheme = (type?: ThemeType) => {
     const newTheme = storedTheme === '0' ? lightTheme : darkTheme;
     const newThemeType = storedTheme === '0' ? '1' : '0';
-    localStorage.setItem(STORAGEKEY.THEME, newThemeType);
+    localStorage.setItem(KEY_STORAGE.THEME, newThemeType);
     setTheme(newTheme);
   };
 

@@ -41,8 +41,8 @@ export interface ThemeColors {
 
 const bgColors = {
   bg: '#131B2E',
-  bgSub: '#122737',
-  bgSubItem: '#113241',
+  bgSub: '#132032',
+  bgSubItem: '#122536',
 };
 
 const primaryColors = {
@@ -65,8 +65,8 @@ const secondaryColors = {
 
 const textColors = {
   text: '#ffffff',
-  textSub: '#EEEFF0',
-  textSubItem: '#DDDEE1',
+  textSub: '#d3d3d3',
+  textSubItem: '#b1b1b1',
 };
 
 const disabledColors = {
