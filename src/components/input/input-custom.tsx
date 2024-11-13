@@ -5,24 +5,24 @@ import { useCallback } from 'react';
 
 type InputCustomProps<Variant extends 'outlined' | 'filled' | 'standard' = 'outlined'> = Omit<TextFieldProps<Variant>, 'variant'> & {
   variant?: Variant;
-  endAdornment?: React.ReactNode;
-  startAdornment?: React.ReactNode;
+  endadornment?: React.ReactNode;
+  startadornment?: React.ReactNode;
 };
 
 const InputCustomDefault = <Variant extends 'outlined' | 'filled' | 'standard' = 'outlined'>({ variant = 'outlined' as Variant, ...props }: InputCustomProps<Variant>) => {
   const propSlotProps = useCallback(() => {
-    return props?.startAdornment || props?.endAdornment
+    return props?.startadornment || props?.endadornment
       ? {
           slotProps: {
             input: {
-              startAdornment: props?.startAdornment || undefined,
-              endAdornment: props?.endAdornment || undefined,
+              startAdornment: props?.startadornment || undefined,
+              endAdornment: props?.endadornment || undefined,
             },
             ...props?.slotProps,
           },
         }
       : {};
-  }, [props?.slotProps, props?.startAdornment, props?.endAdornment]);
+  }, [props?.slotProps, props?.startadornment, props?.endadornment]);
 
   return <TextField {...props} {...propSlotProps()} />;
 };

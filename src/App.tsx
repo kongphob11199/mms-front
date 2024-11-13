@@ -12,6 +12,7 @@ import { BrowserRouter, useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { KEY_STORAGE } from './constants/common';
 import Auth from './auth/auth';
+import { HelmetProvider } from 'react-helmet-async';
 
 function App() {
   // const { colors, handleChangeTheme } = useThemeCustom();
@@ -62,13 +63,15 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
-        <ThemeCustomProvider>
-          <Auth>
-            <Router />
-          </Auth>
-        </ThemeCustomProvider>
-      </BrowserRouter>
+      <HelmetProvider>
+        <BrowserRouter>
+          <ThemeCustomProvider>
+            <Auth>
+              <Router />
+            </Auth>
+          </ThemeCustomProvider>
+        </BrowserRouter>
+      </HelmetProvider>
     </>
   );
 }

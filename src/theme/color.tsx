@@ -1,5 +1,6 @@
 export type ThemeType = 'dark' | 'light';
 
+export type ThemeColorsType = 'primary' | 'secondary';
 export interface ThemeColors {
   bg: string;
   bgSub: string;
