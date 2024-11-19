@@ -27,6 +27,7 @@ const ButtonCustom = styled(ButtomCustomDefault)(({ theme, btnshadow, typecolor 
   return {
     backgroundColor: colorBtn,
     transition: 'all 0.3s ease-in-out',
+
     ...styleBtn,
     ':hover': {
       ...styleBtn[':hover'],

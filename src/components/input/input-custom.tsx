@@ -30,6 +30,9 @@ const InputCustomDefault = <Variant extends 'outlined' | 'filled' | 'standard' =
 const InputCustom = styled(InputCustomDefault)(({ theme }) => {
   const { colors } = useThemeCustom();
   return {
+    fieldset: {
+      borderWidth: '0.5px',
+    },
     '.MuiInputLabel-root': {
       color: colors.textSub,
     },
@@ -45,17 +48,17 @@ const InputCustom = styled(InputCustomDefault)(({ theme }) => {
     '.MuiInputBase-root': {
       'fieldset.MuiOutlinedInput-notchedOutline': {
         transition: 'all 0.25s ease-in-out',
-        borderColor: colors.textSub,
+        borderColor: colors.textBorder,
       },
       ':hover': {
         'fieldset.MuiOutlinedInput-notchedOutline': {
-          borderColor: colors.textSub,
+          borderColor: colors.textBorderHover,
         },
       },
     },
     '.Mui-focused': {
       '.MuiOutlinedInput-notchedOutline': {
-        borderColor: colors.text,
+        borderColor: colors.textBorderHover,
       },
     },
   };
