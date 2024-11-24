@@ -1,0 +1,9 @@
+{
+    "GENERAL":{
+        "GENDER":{
+            "MALE":"ชาย",
+            "FEMALE":"หญิง",
+            "UNKNOWN":"ไม่ระบุ"
+        }
+    }
+}

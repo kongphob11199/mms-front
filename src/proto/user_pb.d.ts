@@ -154,6 +154,12 @@ export class CreateUserRequest extends jspb.Message {
   hasBirthday(): boolean;
   clearBirthday(): CreateUserRequest;
 
+  getUsername(): string;
+  setUsername(value: string): CreateUserRequest;
+
+  getPassword(): string;
+  setPassword(value: string): CreateUserRequest;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CreateUserRequest.AsObject;
   static toObject(includeInstance: boolean, msg: CreateUserRequest): CreateUserRequest.AsObject;
@@ -169,6 +175,8 @@ export namespace CreateUserRequest {
     gender: proto_enum_pb.Gender,
     role: proto_enum_pb.Role,
     birthday?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    username: string,
+    password: string,
   }
 }
 
@@ -196,6 +204,9 @@ export class UpdateUserRequest extends jspb.Message {
   getStatusUser(): proto_enum_pb.StatusUser;
   setStatusUser(value: proto_enum_pb.StatusUser): UpdateUserRequest;
 
+  getUsername(): string;
+  setUsername(value: string): UpdateUserRequest;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): UpdateUserRequest.AsObject;
   static toObject(includeInstance: boolean, msg: UpdateUserRequest): UpdateUserRequest.AsObject;
@@ -213,6 +224,7 @@ export namespace UpdateUserRequest {
     role: proto_enum_pb.Role,
     birthday?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     statusUser: proto_enum_pb.StatusUser,
+    username: string,
   }
 }
 
@@ -231,6 +243,12 @@ export class CreateUserCustomerRequest extends jspb.Message {
   hasBirthday(): boolean;
   clearBirthday(): CreateUserCustomerRequest;
 
+  getUsername(): string;
+  setUsername(value: string): CreateUserCustomerRequest;
+
+  getPassword(): string;
+  setPassword(value: string): CreateUserCustomerRequest;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CreateUserCustomerRequest.AsObject;
   static toObject(includeInstance: boolean, msg: CreateUserCustomerRequest): CreateUserCustomerRequest.AsObject;
@@ -245,6 +263,8 @@ export namespace CreateUserCustomerRequest {
     lastname: string,
     gender: proto_enum_pb.Gender,
     birthday?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    username: string,
+    password: string,
   }
 }
 
@@ -266,6 +286,9 @@ export class UpdateUserCustomerRequest extends jspb.Message {
   hasBirthday(): boolean;
   clearBirthday(): UpdateUserCustomerRequest;
 
+  getUsername(): string;
+  setUsername(value: string): UpdateUserCustomerRequest;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): UpdateUserCustomerRequest.AsObject;
   static toObject(includeInstance: boolean, msg: UpdateUserCustomerRequest): UpdateUserCustomerRequest.AsObject;
@@ -281,6 +304,7 @@ export namespace UpdateUserCustomerRequest {
     lastname: string,
     gender: proto_enum_pb.Gender,
     birthday?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    username: string,
   }
 }
 

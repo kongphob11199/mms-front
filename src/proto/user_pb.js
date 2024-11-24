@@ -1304,7 +1304,9 @@ proto.pb.CreateUserRequest.toObject = function(includeInstance, msg) {
     lastname: jspb.Message.getFieldWithDefault(msg, 3, ""),
     gender: jspb.Message.getFieldWithDefault(msg, 4, 0),
     role: jspb.Message.getFieldWithDefault(msg, 5, 0),
-    birthday: (f = msg.getBirthday()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+    birthday: (f = msg.getBirthday()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    username: jspb.Message.getFieldWithDefault(msg, 7, ""),
+    password: jspb.Message.getFieldWithDefault(msg, 8, "")
   };
 
   if (includeInstance) {
@@ -1361,6 +1363,14 @@ proto.pb.CreateUserRequest.deserializeBinaryFromReader = function(msg, reader) {
       var value = new google_protobuf_timestamp_pb.Timestamp;
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setBirthday(value);
+      break;
+    case 7:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setUsername(value);
+      break;
+    case 8:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPassword(value);
       break;
     default:
       reader.skipField();
@@ -1425,6 +1435,20 @@ proto.pb.CreateUserRequest.serializeBinaryToWriter = function(message, writer) {
       6,
       f,
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getUsername();
+  if (f.length > 0) {
+    writer.writeString(
+      7,
+      f
+    );
+  }
+  f = message.getPassword();
+  if (f.length > 0) {
+    writer.writeString(
+      8,
+      f
     );
   }
 };
@@ -1539,6 +1563,42 @@ proto.pb.CreateUserRequest.prototype.hasBirthday = function() {
 };
 
 
+/**
+ * optional string username = 7;
+ * @return {string}
+ */
+proto.pb.CreateUserRequest.prototype.getUsername = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 7, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.pb.CreateUserRequest} returns this
+ */
+proto.pb.CreateUserRequest.prototype.setUsername = function(value) {
+  return jspb.Message.setProto3StringField(this, 7, value);
+};
+
+
+/**
+ * optional string password = 8;
+ * @return {string}
+ */
+proto.pb.CreateUserRequest.prototype.getPassword = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 8, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.pb.CreateUserRequest} returns this
+ */
+proto.pb.CreateUserRequest.prototype.setPassword = function(value) {
+  return jspb.Message.setProto3StringField(this, 8, value);
+};
+
+
 
 
 
@@ -1577,7 +1637,8 @@ proto.pb.UpdateUserRequest.toObject = function(includeInstance, msg) {
     gender: jspb.Message.getFieldWithDefault(msg, 4, 0),
     role: jspb.Message.getFieldWithDefault(msg, 5, 0),
     birthday: (f = msg.getBirthday()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
-    statusUser: jspb.Message.getFieldWithDefault(msg, 7, 0)
+    statusUser: jspb.Message.getFieldWithDefault(msg, 7, 0),
+    username: jspb.Message.getFieldWithDefault(msg, 8, "")
   };
 
   if (includeInstance) {
@@ -1642,6 +1703,10 @@ proto.pb.UpdateUserRequest.deserializeBinaryFromReader = function(msg, reader) {
     case 7:
       var value = /** @type {!proto.pb.StatusUser} */ (reader.readEnum());
       msg.setStatusUser(value);
+      break;
+    case 8:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setUsername(value);
       break;
     default:
       reader.skipField();
@@ -1719,6 +1784,13 @@ proto.pb.UpdateUserRequest.serializeBinaryToWriter = function(message, writer) {
   if (f !== 0.0) {
     writer.writeEnum(
       7,
+      f
+    );
+  }
+  f = message.getUsername();
+  if (f.length > 0) {
+    writer.writeString(
+      8,
       f
     );
   }
@@ -1870,6 +1942,24 @@ proto.pb.UpdateUserRequest.prototype.setStatusUser = function(value) {
 };
 
 
+/**
+ * optional string username = 8;
+ * @return {string}
+ */
+proto.pb.UpdateUserRequest.prototype.getUsername = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 8, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.pb.UpdateUserRequest} returns this
+ */
+proto.pb.UpdateUserRequest.prototype.setUsername = function(value) {
+  return jspb.Message.setProto3StringField(this, 8, value);
+};
+
+
 
 
 
@@ -1905,7 +1995,9 @@ proto.pb.CreateUserCustomerRequest.toObject = function(includeInstance, msg) {
     firstname: jspb.Message.getFieldWithDefault(msg, 2, ""),
     lastname: jspb.Message.getFieldWithDefault(msg, 3, ""),
     gender: jspb.Message.getFieldWithDefault(msg, 4, 0),
-    birthday: (f = msg.getBirthday()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+    birthday: (f = msg.getBirthday()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    username: jspb.Message.getFieldWithDefault(msg, 7, ""),
+    password: jspb.Message.getFieldWithDefault(msg, 8, "")
   };
 
   if (includeInstance) {
@@ -1958,6 +2050,14 @@ proto.pb.CreateUserCustomerRequest.deserializeBinaryFromReader = function(msg, r
       var value = new google_protobuf_timestamp_pb.Timestamp;
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setBirthday(value);
+      break;
+    case 7:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setUsername(value);
+      break;
+    case 8:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPassword(value);
       break;
     default:
       reader.skipField();
@@ -2015,6 +2115,20 @@ proto.pb.CreateUserCustomerRequest.serializeBinaryToWriter = function(message, w
       5,
       f,
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getUsername();
+  if (f.length > 0) {
+    writer.writeString(
+      7,
+      f
+    );
+  }
+  f = message.getPassword();
+  if (f.length > 0) {
+    writer.writeString(
+      8,
+      f
     );
   }
 };
@@ -2111,6 +2225,42 @@ proto.pb.CreateUserCustomerRequest.prototype.hasBirthday = function() {
 };
 
 
+/**
+ * optional string username = 7;
+ * @return {string}
+ */
+proto.pb.CreateUserCustomerRequest.prototype.getUsername = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 7, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.pb.CreateUserCustomerRequest} returns this
+ */
+proto.pb.CreateUserCustomerRequest.prototype.setUsername = function(value) {
+  return jspb.Message.setProto3StringField(this, 7, value);
+};
+
+
+/**
+ * optional string password = 8;
+ * @return {string}
+ */
+proto.pb.CreateUserCustomerRequest.prototype.getPassword = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 8, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.pb.CreateUserCustomerRequest} returns this
+ */
+proto.pb.CreateUserCustomerRequest.prototype.setPassword = function(value) {
+  return jspb.Message.setProto3StringField(this, 8, value);
+};
+
+
 
 
 
@@ -2147,7 +2297,8 @@ proto.pb.UpdateUserCustomerRequest.toObject = function(includeInstance, msg) {
     firstname: jspb.Message.getFieldWithDefault(msg, 2, ""),
     lastname: jspb.Message.getFieldWithDefault(msg, 3, ""),
     gender: jspb.Message.getFieldWithDefault(msg, 4, 0),
-    birthday: (f = msg.getBirthday()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+    birthday: (f = msg.getBirthday()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    username: jspb.Message.getFieldWithDefault(msg, 6, "")
   };
 
   if (includeInstance) {
@@ -2204,6 +2355,10 @@ proto.pb.UpdateUserCustomerRequest.deserializeBinaryFromReader = function(msg, r
       var value = new google_protobuf_timestamp_pb.Timestamp;
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setBirthday(value);
+      break;
+    case 6:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setUsername(value);
       break;
     default:
       reader.skipField();
@@ -2268,6 +2423,13 @@ proto.pb.UpdateUserCustomerRequest.serializeBinaryToWriter = function(message, w
       5,
       f,
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getUsername();
+  if (f.length > 0) {
+    writer.writeString(
+      6,
+      f
     );
   }
 };
@@ -2379,6 +2541,24 @@ proto.pb.UpdateUserCustomerRequest.prototype.clearBirthday = function() {
  */
 proto.pb.UpdateUserCustomerRequest.prototype.hasBirthday = function() {
   return jspb.Message.getField(this, 5) != null;
+};
+
+
+/**
+ * optional string username = 6;
+ * @return {string}
+ */
+proto.pb.UpdateUserCustomerRequest.prototype.getUsername = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.pb.UpdateUserCustomerRequest} returns this
+ */
+proto.pb.UpdateUserCustomerRequest.prototype.setUsername = function(value) {
+  return jspb.Message.setProto3StringField(this, 6, value);
 };
 
 

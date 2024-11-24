@@ -1,6 +1,10 @@
-
-import menuLocaleEN from "./menu/menu.json"
+import { generalEN } from './general/general.en';
+import menuLocaleEN from './menu/menu.json';
+import registerEN from './register/register.json';
 
 export const localeEN = {
-    ...menuLocaleEN
-}
+  NOOPTION: 'No data found',
+  ...menuLocaleEN,
+  ...registerEN,
+  ...generalEN,
+};

@@ -1,0 +1,15 @@
+{
+    "REGISTER":{
+        "TITLE":"ลงทะเบียน",
+        "FORM":{
+            "USERNAME":"ชื่อบัญชีผู้ใช้",
+            "PASSWORD":"รหัสผ่าน",
+            "CONFIRM_PASSWORD":"ยืนยันรหัสผ่าน",
+            "FIRSTNAME":"ชื่อจริง",
+            "LASTNAME":"นามสกุล",
+            "BIRTHDAY":"วันเกิด",
+            "GENDER":"เพศ"
+        }
+       
+    }
+}

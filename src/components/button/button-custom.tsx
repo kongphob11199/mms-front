@@ -1,11 +1,11 @@
 import { Button, ButtonProps, styled } from '@mui/material';
 import { useThemeCustom } from '../../theme/theme-context';
-import { adjustColor, adjustOpacity } from '../../uitls/color-uitls';
+import { adjustColor, adjustOpacity } from '../../utils/color-utils';
 import { ThemeColorsType } from '../../theme/color';
 
 type BtnShadowProps = 'btn-shadow' | 'btn-shadow-better' | 'btn-shadow-default' | 'none';
 
-type ButtonCustomProps = ButtonProps & {
+export type ButtonCustomProps = ButtonProps & {
   btnshadow?: BtnShadowProps;
   typecolor?: ThemeColorsType;
 };
@@ -71,9 +71,9 @@ const renderBtnShadow = (color: string, btnShadow?: BtnShadowProps) => {
       return styleBtnShadow;
     case 'btn-shadow-better':
       return styleBtnShadowBetter;
-    case 'btn-shadow-default':
-      return styleBtnShadowDefault;
-    default:
+    case 'none':
       return styleDefault;
+    default:
+      return styleBtnShadowDefault;
   }
 };

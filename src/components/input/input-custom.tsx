@@ -2,6 +2,7 @@ import { TextField, TextFieldProps } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useThemeCustom } from '../../theme/theme-context';
 import { useCallback } from 'react';
+import LabelError from '../label/label-error';
 
 type InputCustomProps<Variant extends 'outlined' | 'filled' | 'standard' = 'outlined'> = Omit<TextFieldProps<Variant>, 'variant'> & {
   variant?: Variant;
@@ -24,12 +25,37 @@ const InputCustomDefault = <Variant extends 'outlined' | 'filled' | 'standard' =
       : {};
   }, [props?.slotProps, props?.startadornment, props?.endadornment]);
 
-  return <TextField {...props} {...propSlotProps()} />;
+  return (
+    <>
+      <TextField {...props} {...propSlotProps()} error={props?.error || !!props?.helperText} helperText={props?.helperText && <LabelError text={props.helperText.toString()} />} />
+    </>
+  );
 };
 
 const InputCustom = styled(InputCustomDefault)(({ theme }) => {
   const { colors } = useThemeCustom();
   return {
+    '.MuiFormLabel-asterisk': {
+      color: colors.error,
+    },
+    '.MuiInputBase-root.MuiOutlinedInput-root.Mui-error.Mui-focused': {
+      fieldset: {
+        borderColor: colors.error,
+      },
+    },
+    '.MuiInputBase-root.Mui-error': {
+      input: {
+        color: colors.error,
+      },
+      'fieldset.MuiOutlinedInput-notchedOutline': {
+        borderColor: colors.error,
+      },
+      ':hover': {
+        'fieldset.MuiOutlinedInput-notchedOutline': {
+          borderColor: colors.error,
+        },
+      },
+    },
     fieldset: {
       borderWidth: '0.5px',
     },
@@ -40,24 +66,27 @@ const InputCustom = styled(InputCustomDefault)(({ theme }) => {
       color: colors.text,
     },
     label: {
-      transition: 'all 0.25s ease-in-out',
+      transition: 'all 0.15s ease-in-out',
+    },
+    '.MuiInputLabel-root.Mui-focused.Mui-error': {
+      color: colors.error,
     },
     '.MuiInputLabel-root.Mui-focused': {
       color: colors.text,
     },
     '.MuiInputBase-root': {
-      'fieldset.MuiOutlinedInput-notchedOutline': {
-        transition: 'all 0.25s ease-in-out',
+      fieldset: {
+        transition: 'all 0.15s ease-in-out',
         borderColor: colors.textBorder,
       },
       ':hover': {
-        'fieldset.MuiOutlinedInput-notchedOutline': {
+        fieldset: {
           borderColor: colors.textBorderHover,
         },
       },
     },
-    '.Mui-focused': {
-      '.MuiOutlinedInput-notchedOutline': {
+    '.MuiInputBase-root.MuiOutlinedInput-root.Mui-focused': {
+      fieldset: {
         borderColor: colors.textBorderHover,
       },
     },

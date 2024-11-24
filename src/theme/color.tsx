@@ -45,6 +45,19 @@ export interface ThemeColors {
   bs_2: string;
   bs_3: string;
   bs_4: string;
+  bs_5: string;
+  //
+  error: string;
+  //
+  gray: string;
+  gray_100: string;
+  //
+  status: {
+    success: string;
+    warning: string;
+    info: string;
+    error: string;
+  };
 }
 
 const boxShadow = {
@@ -52,6 +65,7 @@ const boxShadow = {
   bs_2: 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px',
   bs_3: 'rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px',
   bs_4: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+  bs_5: 'rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px',
 };
 
 const primaryColors = {
@@ -95,9 +109,9 @@ const whiteColors = {
 };
 
 const bgColorsDark = {
-  bg: '#131B2E',
-  bgSub: '#132032',
-  bgSubItem: '#122536',
+  bg: '#090c14',
+  bgSub: '#0C131E',
+  bgSubItem: '#101928',
 };
 
 const textColorsDark = {
@@ -106,6 +120,24 @@ const textColorsDark = {
   textSubItem: '#b1b1b1',
   textBorder: '#9d9d9d',
   textBorderHover: '#ffffff',
+};
+
+const errorColors = {
+  error: '#d32f2f',
+};
+
+const grayColors = {
+  gray: '#9e9e9e',
+  gray_100: '#757575',
+};
+
+const statusColors = {
+  status: {
+    success: '#15dd1d',
+    warning: '#ebce0f',
+    info: '#37a0e1',
+    error: '#dd2515',
+  },
 };
 
 export const darkTheme: ThemeColors = {
@@ -117,6 +149,9 @@ export const darkTheme: ThemeColors = {
   ...blackColors,
   ...whiteColors,
   ...boxShadow,
+  ...errorColors,
+  ...grayColors,
+  ...statusColors,
 };
 
 const bgColorsLight = {

@@ -1,0 +1,16 @@
+{
+    "REGISTER":{
+        "TITLE":"Register",
+        "FORM":{
+            "USERNAME":"Username",
+            "PASSWORD":"Password",
+            "CONFIRM_PASSWORD":"Confiem password",
+            "FIRSTNAME":"First name",
+            "LASTNAME":"Last name",
+            "BIRTHDAY":"Birthday",
+            "GENDER":"Gender"
+        }
+        
+        
+    }
+}

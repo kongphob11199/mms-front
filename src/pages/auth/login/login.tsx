@@ -1,9 +1,7 @@
 import { Helmet } from 'react-helmet-async';
-import LoginSection from '../../sections/login/login-section';
+import LoginSection from '../../../sections/auth/login/login-section';
 
-type Props = {};
-
-const Login = (props: Props) => {
+const Login = () => {
   return (
     <>
       <Helmet>

@@ -1,0 +1,14 @@
+{
+    "BUTTON": {
+        "SUBMIT": "Save",
+        "REGISTER": "Register",
+        "CANCEL": "Cancel",
+        "BACK": "Back",
+        "CONFIRM": "Confirm",
+        "DELETE": "Delete",
+        "UPDATE": "Update",
+        "CLOSE": "Close",
+        "OK": "OK"
+    }
+    
+}

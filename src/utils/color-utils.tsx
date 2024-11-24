@@ -1,5 +1,3 @@
-import { KEY_STORAGE } from '../constants/common';
-
 export const adjustColor = (color: string, amount: number = 0, format: 'hex' | 'rgb' = 'rgb'): string => {
   const colorValue = color.startsWith('#') ? color.slice(1) : color;
 
@@ -28,7 +26,7 @@ export const adjustOpacity = (color: string, adjustment: number): string => {
     throw new Error('want rgba');
   }
 
-  const [, r, g, b, a = '1'] = rgbaMatch;
+  const [, r, g, b = '1'] = rgbaMatch;
 
   return `rgba(${r}, ${g}, ${b}, ${adjustment})`;
 };

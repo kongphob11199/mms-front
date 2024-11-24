@@ -1,26 +1,23 @@
-import React, { useEffect } from 'react';
-import logo from './logo.svg';
+import { useEffect } from 'react';
 import './App.css';
 import { userGRPC } from './api/gapi/user.gapi';
 import { CreateUserCustomerRequest } from './proto/user_pb';
 import { Gender } from './proto/enum_pb';
 import { Timestamp } from 'google-protobuf/google/protobuf/timestamp_pb';
-import { Box, Button } from '@mui/material';
-import { ThemeCustomProvider, useThemeCustom } from './theme/theme-context';
+import { ThemeCustomProvider } from './theme/theme-context';
 import Router from './routes/route';
-import { BrowserRouter, useNavigate } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import dayjs from 'dayjs';
-import { KEY_STORAGE } from './constants/common';
 import Auth from './auth/auth';
 import { HelmetProvider } from 'react-helmet-async';
+import { AlertCustomProvider } from './components/alert/use-alert-custom';
 
 function App() {
-  // const { colors, handleChangeTheme } = useThemeCustom();
   const loadUser = async () => {
     await userGRPC
       .findAll()
       .then((data) => {
-        console.log(data); // Handle successful response
+        console.log(data);
         data.usersList.forEach((item) => {
           if (item.birthday) {
             const formattedDate = dayjs.unix(item.birthday.seconds).format('YYYY-MM-DD');
@@ -29,7 +26,7 @@ function App() {
         });
       })
       .catch((error) => {
-        console.error('222 Error:', error); // Handle error
+        console.error('222 Error:', error);
       });
   };
 
@@ -66,9 +63,11 @@ function App() {
       <HelmetProvider>
         <BrowserRouter>
           <ThemeCustomProvider>
-            <Auth>
-              <Router />
-            </Auth>
+            <AlertCustomProvider>
+              <Auth>
+                <Router />
+              </Auth>
+            </AlertCustomProvider>
           </ThemeCustomProvider>
         </BrowserRouter>
       </HelmetProvider>

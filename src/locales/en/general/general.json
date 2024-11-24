@@ -1,0 +1,9 @@
+{
+    "GENERAL":{
+        "GENDER":{
+            "MALE":"male",
+            "FEMALE":"female",
+            "UNKNOWN":"unknown"
+        }
+    }
+}

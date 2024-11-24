@@ -50,6 +50,8 @@ message CreateUserRequest {
   Gender gender = 4;
   Role role = 5;
   google.protobuf.Timestamp birthday = 6;
+  string username = 7;
+  string password = 8;
 }
 
 message UpdateUserRequest {
@@ -60,6 +62,7 @@ message UpdateUserRequest {
   Role role = 5;
   google.protobuf.Timestamp birthday = 6;
   StatusUser status_user = 7;
+  string username = 8;
 }
 
 message CreateUserCustomerRequest {
@@ -67,6 +70,8 @@ message CreateUserCustomerRequest {
   string lastname = 3;
   Gender gender = 4;
   google.protobuf.Timestamp birthday = 5;
+  string username = 7;
+  string password = 8;
 }
 
 message UpdateUserCustomerRequest {
@@ -75,6 +80,7 @@ message UpdateUserCustomerRequest {
   string lastname = 3;
   Gender gender = 4;
   google.protobuf.Timestamp birthday = 5;
+  string username = 6;
 }
 
 message User {
