@@ -5,6 +5,7 @@ import { Dayjs } from 'dayjs';
 import { Popper, styled, SxProps } from '@mui/material';
 import { useThemeCustom } from '../../theme/theme-context';
 import { getLanguageCurrent } from '../../utils/lang-utils';
+import LabelError from '../label/label-error';
 
 type InputDateCustomProps = {
   disabled?: boolean;
@@ -57,7 +58,7 @@ const InputDateCustomDefault = (props: InputDateCustomProps) => {
             required: props?.required,
             placeholder: props?.placeholder,
             error: props?.error || !!props?.helperText,
-            helperText: props?.helperText || '',
+            helperText: props?.helperText && <LabelError text={props.helperText.toString()} />,
             inputProps: {
               readOnly: props?.readOnly || false,
             },
@@ -119,6 +120,9 @@ const InputDateCustom = styled(InputDateCustomDefault)(({ theme, fullWidth }) =>
     svg: {
       fill: colors.text,
     },
+    'label.Mui-error': {
+      color: colors.error,
+    },
     '.MuiFormLabel-asterisk': {
       color: colors.error,
     },
@@ -127,7 +131,18 @@ const InputDateCustom = styled(InputDateCustomDefault)(({ theme, fullWidth }) =>
         borderColor: colors.error,
       },
     },
+    '.MuiFormHelperText-root.Mui-error': {
+      svg: {
+        fill: colors.error,
+      },
+    },
     '.MuiInputBase-root.Mui-error': {
+      input: {
+        color: colors.error,
+      },
+      svg: {
+        fill: colors.error,
+      },
       'fieldset.MuiOutlinedInput-notchedOutline': {
         borderColor: colors.error,
       },

@@ -1,13 +1,15 @@
+import { Gender } from '../../proto/enum_pb';
+
 export enum gender {
-  MALE = 'MALE',
-  FEMALE = 'FEMALE',
-  UNKNOWN = 'UNKNOWN',
+  MALE = Gender.MALE,
+  FEMALE = Gender.FEMALE,
+  UNKNOWN = Gender.UNKNOWN,
 }
 
 export const genderOp = [
-  { value: gender.MALE, label: 'GENERAL.GENDER.MALE' },
-  { value: gender.FEMALE, label: 'GENERAL.GENDER.FEMALE' },
-  { value: gender.UNKNOWN, label: 'GENERAL.GENDER.UNKNOWN' },
+  { value: Gender.MALE, label: 'GENERAL.GENDER.MALE' },
+  { value: Gender.FEMALE, label: 'GENERAL.GENDER.FEMALE' },
+  { value: Gender.UNKNOWN, label: 'GENERAL.GENDER.UNKNOWN' },
 ];
 
 export enum role {

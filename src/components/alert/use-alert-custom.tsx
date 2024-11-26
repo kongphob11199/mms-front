@@ -102,7 +102,7 @@ export const AlertCustomProvider = ({ children }: AlertCustomProviderProps) => {
       clearTimeout(timeoutRef.current);
     }
     setIndexCurrent(true);
-    setIsOpenMulti([...isOpenMulti, { ...detailOpen }]);
+    setIsOpenMulti((prev) => [...prev, { ...detailOpen }]);
     timeoutRef.current = setTimeout(() => {
       setIndexCurrent(false);
       timeoutRef.current = null;

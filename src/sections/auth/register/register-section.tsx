@@ -13,6 +13,12 @@ import { genderOp } from '../../../constants/info/general-info';
 import ButtonCustom from '../../../components/button/button-custom';
 import { RegisterInterface } from './register-interface';
 import { useAlertCustom } from '../../../components/alert/use-alert-custom';
+import { handleGetOptionLabel } from '../../../utils/autocomplete-utils';
+import { CreateUserCustomerRequest } from '../../../proto/user_pb';
+import dayjs from 'dayjs';
+import { ConvertTimeToTimestamp } from '../../../utils/time-utils';
+import { Gender } from '../../../proto/enum_pb';
+import { userGRPC } from '../../../api/gapi/user.gapi';
 
 const initRegsiter = {
   username: '',
@@ -21,37 +27,118 @@ const initRegsiter = {
   firstname: '',
   lastname: '',
   birth: null,
-  gender: '',
+  gender: null,
 };
 
-const initErrorMsg = initRegsiter;
+const initRegsiterError = {
+  username: '',
+  password: '',
+  confirmPassword: '',
+  firstname: '',
+  lastname: '',
+  birth: '',
+  gender: '',
+};
 
 const RegisterSection = () => {
   const { t } = useTranslation();
   const { colors } = useThemeCustom();
-  const { openAlert, openMultiAlert } = useAlertCustom();
+  const { openMultiAlert } = useAlertCustom();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const [isHidePassword, setIsHidePassword] = useState<boolean>(true);
   const [isHideConfirmPassword, setIsHideConfirmPassword] = useState<boolean>(true);
 
   const [dataRegister, setDataRegister] = useState<RegisterInterface>(initRegsiter);
-  const [errorMsg, setErrorMsg] = useState(initErrorMsg);
+  const [errorMsg, setErrorMsg] = useState(initRegsiterError);
 
   const handleCheckErrorSubmit = () => {
-    return true;
+    const checkErr = errorMsg;
+
+    if (dataRegister.username === '' || !dataRegister.username) {
+      checkErr.username = t('REGISTER.MESSAGE.USERNAME');
+    }
+
+    if (dataRegister.password === '' || !dataRegister.password) {
+      checkErr.password = t('REGISTER.MESSAGE.PASSWORD');
+    }
+
+    if (dataRegister.confirmPassword === '' || !dataRegister.confirmPassword) {
+      checkErr.confirmPassword = t('REGISTER.MESSAGE.CONFIRM_PASSWORD');
+    }
+
+    if (dataRegister.firstname === '' || !dataRegister.firstname) {
+      checkErr.firstname = t('REGISTER.MESSAGE.FIRSTNAME');
+    }
+
+    if (dataRegister.lastname === '' || !dataRegister.lastname) {
+      checkErr.lastname = t('REGISTER.MESSAGE.LASTNAME');
+    }
+
+    if (dataRegister.birth === null || !dataRegister.birth) {
+      checkErr.birth = t('REGISTER.MESSAGE.BIRTHDAY');
+    }
+
+    if (dataRegister.gender === null || !dataRegister.gender.value) {
+      checkErr.gender = t('REGISTER.MESSAGE.GENDER');
+    }
+
+    return checkErr;
   };
 
-  const onSubmitRegister = () => {
+  const onSubmitRegister = async () => {
+    setLoading(true);
     const checkError = handleCheckErrorSubmit();
+    setErrorMsg(checkError);
 
-    if (checkError) {
-      console.log('222 come');
-      openMultiAlert({
-        component: '1',
-      });
-      // openAlert({});
-      return;
+    if (Object.values(checkError).some((value) => value !== '')) {
+      Object.values(checkError)
+        .filter((value) => value)
+        .forEach((value, index) => {
+          if (value) {
+            setTimeout(() => {
+              openMultiAlert({
+                component: <Typography>{value}</Typography>,
+              });
+            }, index * 150);
+          }
+        });
+
+      return setLoading(false);
     }
+
+    if (dataRegister.gender === null || !dataRegister.gender.value) {
+      return setLoading(false);
+    }
+
+    const newReq = new CreateUserCustomerRequest();
+    newReq.setFirstname(dataRegister.firstname);
+    newReq.setLastname(dataRegister.lastname);
+    newReq.setGender(dataRegister.gender.value as Gender);
+    // newReq.setGender(Gender.FEMALE);
+    newReq.setBirthday(ConvertTimeToTimestamp(dayjs(dataRegister.birth)));
+    newReq.setUsername(dataRegister.username);
+    newReq.setPassword(dataRegister.password);
+    console.log('222 newReq', newReq.toObject(), dataRegister.gender?.valueOf());
+    // await userGRPC
+    //   .createUserCustomer(newReq)
+    //   .then((data) => {
+    //     console.log('222 ', data); // Handle successful response
+    //   })
+    //   .catch((error) => {
+    //     console.error('222 Error:', error); // Handle error
+    //   })
+    //   .finally(() => setLoading(false));
+  };
+
+  const handleChangeDataRegisterInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newObj = { name: e.target.name, value: e.target.value };
+    handleChangeDataRegister(newObj);
+  };
+
+  const handleChangeDataRegister = (obj: { name: string; value: any }) => {
+    setDataRegister((prev) => ({ ...prev, [obj.name]: obj.value }));
+    setErrorMsg((prev) => ({ ...prev, [obj.name]: '' }));
   };
 
   return (
@@ -81,7 +168,15 @@ const RegisterSection = () => {
             <Grid2 container size={{ xs: 12, md: 6 }}>
               <Grid2 size={12}>
                 <Box>
-                  <InputCustom required fullWidth label={t('REGISTER.FORM.USERNAME')} value={dataRegister.username} helperText={t(`${errorMsg.username}`)} />
+                  <InputCustom
+                    required
+                    fullWidth
+                    name="username"
+                    label={t('REGISTER.FORM.USERNAME')}
+                    value={dataRegister.username}
+                    onChange={handleChangeDataRegisterInput}
+                    helperText={t(`${errorMsg.username}`)}
+                  />
                 </Box>
               </Grid2>
               <Grid2 size={12}>
@@ -89,8 +184,10 @@ const RegisterSection = () => {
                   <InputCustom
                     required
                     fullWidth
+                    name="password"
                     label={t('REGISTER.FORM.PASSWORD')}
                     value={dataRegister.password}
+                    onChange={handleChangeDataRegisterInput}
                     helperText={t(`${errorMsg.password}`)}
                     type={isHidePassword ? 'password' : 'text'}
                     endadornment={
@@ -106,9 +203,11 @@ const RegisterSection = () => {
                   <InputCustom
                     required
                     fullWidth
+                    name="confirmPassword"
                     label={t('REGISTER.FORM.CONFIRM_PASSWORD')}
                     value={dataRegister.confirmPassword}
                     helperText={t(`${errorMsg.confirmPassword}`)}
+                    onChange={handleChangeDataRegisterInput}
                     type={isHideConfirmPassword ? 'password' : 'text'}
                     endadornment={
                       <IconButton sx={{ color: colors.text, padding: 0 }} onClick={() => setIsHideConfirmPassword(!isHideConfirmPassword)}>
@@ -128,25 +227,70 @@ const RegisterSection = () => {
 
           <Grid2 container size={12}>
             <Grid2 size={{ xs: 12, md: 6 }}>
-              <InputCustom required fullWidth label={t('REGISTER.FORM.FIRSTNAME')} value={dataRegister.firstname} helperText={t(`${errorMsg.firstname}`)} />
+              <InputCustom
+                required
+                fullWidth
+                name="firstname"
+                label={t('REGISTER.FORM.FIRSTNAME')}
+                value={dataRegister.firstname}
+                onChange={handleChangeDataRegisterInput}
+                helperText={t(`${errorMsg.firstname}`)}
+              />
             </Grid2>
             <Grid2 size={{ xs: 12, md: 6 }}>
-              <InputCustom required fullWidth label={t('REGISTER.FORM.LASTNAME')} value={dataRegister.lastname} helperText={t(`${errorMsg.lastname}`)} />
+              <InputCustom
+                required
+                fullWidth
+                name="lastname"
+                label={t('REGISTER.FORM.LASTNAME')}
+                value={dataRegister.lastname}
+                onChange={handleChangeDataRegisterInput}
+                helperText={t(`${errorMsg.lastname}`)}
+              />
             </Grid2>
           </Grid2>
           <Grid2 container size={12}>
             <Grid2 size={{ xs: 12, md: 6 }}>
-              <InputDateCustom fullWidth required label={t('REGISTER.FORM.BIRTHDAY')} value={dataRegister?.birth || null} helperText={t(`${errorMsg.birth || ''}`)} />
+              <InputDateCustom
+                fullWidth
+                required
+                name="birth"
+                label={t('REGISTER.FORM.BIRTHDAY')}
+                value={dataRegister?.birth || null}
+                onChange={(value) => {
+                  const newObj = {
+                    name: 'birth',
+                    value: value,
+                  };
+                  handleChangeDataRegister(newObj);
+                }}
+                helperText={t(`${errorMsg.birth || ''}`)}
+              />
             </Grid2>
             <Grid2 size={{ xs: 12, md: 6 }}>
               <Box>
-                <AutocompleteCustom options={genderOp} label={t('REGISTER.FORM.GENDER')} value={dataRegister.gender} helpertext={t(`${errorMsg.gender}`)} required />
+                <AutocompleteCustom
+                  options={genderOp}
+                  name="gender"
+                  label={t('REGISTER.FORM.GENDER')}
+                  getOptionLabel={(option) => t(handleGetOptionLabel(option, 'label'))}
+                  value={dataRegister.gender}
+                  onChange={(_, newValue: any) => {
+                    const newObj = {
+                      name: 'gender',
+                      value: newValue || {},
+                    };
+                    handleChangeDataRegister(newObj);
+                  }}
+                  helpertext={t(`${errorMsg.gender}`)}
+                  required
+                />
               </Box>
             </Grid2>
           </Grid2>
         </Grid2>
         <Box textAlign="center">
-          <ButtonCustom onClick={onSubmitRegister} sx={{ fontSize: '17px', minWidth: '300px' }}>
+          <ButtonCustom onClick={onSubmitRegister} sx={{ fontSize: '17px', minWidth: '300px' }} disabled={loading}>
             {t('BUTTON.REGISTER')}
           </ButtonCustom>
         </Box>

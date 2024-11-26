@@ -5,7 +5,6 @@ import { useThemeCustom } from '../../theme/theme-context';
 
 const AlertCustomSlice = () => {
   const { isOpenMulti, closeMultiAlert } = useAlertCustom();
-
   if (isOpenMulti?.length) {
     return (
       <Box
@@ -16,6 +15,7 @@ const AlertCustomSlice = () => {
           zIndex: 9999,
           display: 'flex',
           flexDirection: 'column',
+          alignItems: 'flex-end',
           gap: '8px',
         }}
       >
@@ -57,8 +57,8 @@ const AlertSlice = (props: AlertSliceProps) => {
   return (
     <Box
       sx={{
-        width: '100%',
-        // minWidth: isShow ? "250px" : "0px",
+        width: 'fit-content',
+        minWidth: isShow ? '170px' : '0px',
         height: '100%',
         padding: isShow ? '12px 30px 12px 50px' : '0',
         backgroundColor: colors.bgSubItem,
@@ -71,7 +71,7 @@ const AlertSlice = (props: AlertSliceProps) => {
         position: 'relative',
         color: colors.text,
         overflow: 'hidden',
-        boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
+        boxShadow: colors.bs_2,
       }}
     >
       <Box
@@ -83,14 +83,14 @@ const AlertSlice = (props: AlertSliceProps) => {
         //   }, 300);
         // }}
         sx={{
-          background: `linear-gradient(90deg, ${colors.error} 70%, transparent 100%)`,
+          backgroundColor: colors.error,
           position: 'absolute',
           left: '0',
-          width: '40px',
+          width: '15px',
           height: '100%',
         }}
       ></Box>
-      <Box>AlertCustomSlice </Box>
+      <Box>{props.item?.component} </Box>
     </Box>
   );
 };

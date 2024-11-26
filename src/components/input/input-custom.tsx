@@ -47,6 +47,9 @@ const InputCustom = styled(InputCustomDefault)(({ theme }) => {
       input: {
         color: colors.error,
       },
+      svg: {
+        fill: colors.error,
+      },
       'fieldset.MuiOutlinedInput-notchedOutline': {
         borderColor: colors.error,
       },

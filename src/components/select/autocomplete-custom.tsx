@@ -12,6 +12,7 @@ type AutocompleteCustomProps<Value, Multiple extends boolean | undefined = false
   helpertext?: string;
   sxPopper?: SxProps;
   required?: boolean;
+  name?: string;
 };
 
 const AutocompleteCustomDefault = <Value, Multiple extends boolean | undefined = false, DisableClearable extends boolean | undefined = false, FreeSolo extends boolean | undefined = false>(

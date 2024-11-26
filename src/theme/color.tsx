@@ -29,6 +29,8 @@ export interface ThemeColors {
   disabled: string;
   disabledSub: string;
   disabledSubitem: string;
+  disabledText: string;
+  disabledTextSub: string;
   //
   black: string;
   black_100: string;
@@ -90,6 +92,8 @@ const disabledColors = {
   disabled: '#B5B5B5',
   disabledSub: '#C1C1C1',
   disabledSubitem: '#CECECE',
+  disabledText: '#757575',
+  disabledTextSub: '#a7a7a7',
 };
 
 const blackColors = {

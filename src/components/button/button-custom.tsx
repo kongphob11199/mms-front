@@ -27,7 +27,10 @@ const ButtonCustom = styled(ButtomCustomDefault)(({ theme, btnshadow, typecolor 
   return {
     backgroundColor: colorBtn,
     transition: 'all 0.3s ease-in-out',
-
+    '&.MuiButtonBase-root.MuiButton-root.MuiButton-contained.Mui-disabled': {
+      backgroundColor: colors.disabled,
+      color: colors.gray_100,
+    },
     ...styleBtn,
     ':hover': {
       ...styleBtn[':hover'],

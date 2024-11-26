@@ -1,3 +1,4 @@
+import { RESPONSE_API } from '../../constants/common';
 import { CreateUserCustomerRequest, Empty, UsersResponse } from '../../proto/user_pb';
 import { UserServiceClient } from '../../proto/UserServiceClientPb';
 
@@ -24,8 +25,7 @@ export const userGRPC = {
         if (err) {
           reject(err);
         } else {
-          console.log('222 response', response.toObject());
-          resolve(response.toObject());
+          resolve(RESPONSE_API[response.toObject().response]);
         }
       });
     });

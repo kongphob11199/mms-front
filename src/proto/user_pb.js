@@ -1996,8 +1996,8 @@ proto.pb.CreateUserCustomerRequest.toObject = function(includeInstance, msg) {
     lastname: jspb.Message.getFieldWithDefault(msg, 3, ""),
     gender: jspb.Message.getFieldWithDefault(msg, 4, 0),
     birthday: (f = msg.getBirthday()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
-    username: jspb.Message.getFieldWithDefault(msg, 7, ""),
-    password: jspb.Message.getFieldWithDefault(msg, 8, "")
+    username: jspb.Message.getFieldWithDefault(msg, 6, ""),
+    password: jspb.Message.getFieldWithDefault(msg, 7, "")
   };
 
   if (includeInstance) {
@@ -2051,11 +2051,11 @@ proto.pb.CreateUserCustomerRequest.deserializeBinaryFromReader = function(msg, r
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setBirthday(value);
       break;
-    case 7:
+    case 6:
       var value = /** @type {string} */ (reader.readString());
       msg.setUsername(value);
       break;
-    case 8:
+    case 7:
       var value = /** @type {string} */ (reader.readString());
       msg.setPassword(value);
       break;
@@ -2120,14 +2120,14 @@ proto.pb.CreateUserCustomerRequest.serializeBinaryToWriter = function(message, w
   f = message.getUsername();
   if (f.length > 0) {
     writer.writeString(
-      7,
+      6,
       f
     );
   }
   f = message.getPassword();
   if (f.length > 0) {
     writer.writeString(
-      8,
+      7,
       f
     );
   }
@@ -2226,11 +2226,11 @@ proto.pb.CreateUserCustomerRequest.prototype.hasBirthday = function() {
 
 
 /**
- * optional string username = 7;
+ * optional string username = 6;
  * @return {string}
  */
 proto.pb.CreateUserCustomerRequest.prototype.getUsername = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 7, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
 };
 
 
@@ -2239,16 +2239,16 @@ proto.pb.CreateUserCustomerRequest.prototype.getUsername = function() {
  * @return {!proto.pb.CreateUserCustomerRequest} returns this
  */
 proto.pb.CreateUserCustomerRequest.prototype.setUsername = function(value) {
-  return jspb.Message.setProto3StringField(this, 7, value);
+  return jspb.Message.setProto3StringField(this, 6, value);
 };
 
 
 /**
- * optional string password = 8;
+ * optional string password = 7;
  * @return {string}
  */
 proto.pb.CreateUserCustomerRequest.prototype.getPassword = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 8, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 7, ""));
 };
 
 
@@ -2257,7 +2257,7 @@ proto.pb.CreateUserCustomerRequest.prototype.getPassword = function() {
  * @return {!proto.pb.CreateUserCustomerRequest} returns this
  */
 proto.pb.CreateUserCustomerRequest.prototype.setPassword = function(value) {
-  return jspb.Message.setProto3StringField(this, 8, value);
+  return jspb.Message.setProto3StringField(this, 7, value);
 };
 
 

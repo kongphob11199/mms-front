@@ -1,4 +1,4 @@
-import React, { RefObject, useEffect } from "react";
+import { RefObject, useEffect } from 'react';
 
 type UseClickOutSideProps = {
   ref: RefObject<HTMLElement>;
@@ -11,23 +11,17 @@ const useClickOutSide = (props: UseClickOutSideProps) => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      const checkRefSec = refSec?.current
-        ? !refSec?.current.contains(event.target as Node)
-        : true;
-      if (
-        ref.current &&
-        !ref.current.contains(event.target as Node) &&
-        checkRefSec
-      ) {
+      const checkRefSec = refSec?.current ? !refSec?.current.contains(event.target as Node) : true;
+      if (ref.current && !ref.current.contains(event.target as Node) && checkRefSec) {
         handler(event);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [ref, handler]);
+  }, [ref, handler, refSec]);
 };
 
 export default useClickOutSide;
