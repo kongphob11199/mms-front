@@ -17,11 +17,11 @@ export const authRoutes = {
       element: <Login />,
     },
     {
-      path: 'login',
+      path: ROUTES.AUTH.LOGIN,
       element: <Login />,
     },
     {
-      path: 'register',
+      path: ROUTES.AUTH.REGISTER,
       element: <Register />,
     },
   ],

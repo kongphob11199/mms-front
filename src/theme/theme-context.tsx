@@ -10,7 +10,7 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeCustomProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const storedTheme = localStorage.getItem(KEY_STORAGE.THEME);
+  const storedTheme = localStorage.getItem(KEY_STORAGE.THEME) || '1';
   const initialTheme = storedTheme === '0' ? lightTheme : darkTheme;
 
   const [theme, setTheme] = useState<ThemeColors>(initialTheme);

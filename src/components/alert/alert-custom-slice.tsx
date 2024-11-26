@@ -4,7 +4,7 @@ import { DetailOpenAlertProps, useAlertCustom } from './use-alert-custom';
 import { useThemeCustom } from '../../theme/theme-context';
 
 const AlertCustomSlice = () => {
-  const { isOpenMulti, closeMultiAlert } = useAlertCustom();
+  const { isOpenMulti } = useAlertCustom();
   if (isOpenMulti?.length) {
     return (
       <Box
@@ -36,7 +36,7 @@ type AlertSliceProps = {
 
 const AlertSlice = (props: AlertSliceProps) => {
   const { colors } = useThemeCustom();
-  const { isOpenMulti, isCloseMulti, closeMultiAlert } = useAlertCustom();
+  // const { isOpenMulti, isCloseMulti, closeMultiAlert } = useAlertCustom();
   const [isShow, setIsShow] = useState<boolean>(false);
 
   useEffect(() => {

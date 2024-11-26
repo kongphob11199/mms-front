@@ -10,7 +10,6 @@ type AlertCustomContextType = {
   openAlert: (detailOpen?: DetailOpenAlertProps) => void;
   closeAlert: () => void;
   isOpenMulti: DetailOpenAlertProps[];
-  isCloseMulti: DetailOpenAlertProps[];
   openMultiAlert: (detailOpen: DetailOpenAlertProps) => void;
   closeMultiAlert: (index?: number) => void;
 };
@@ -72,7 +71,6 @@ export type DetailOpenAlertProps = {
 export const AlertCustomProvider = ({ children }: AlertCustomProviderProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isOpenMulti, setIsOpenMulti] = useState<DetailOpenAlertProps[]>([]);
-  const [isCloseMulti, setIsCloseMulti] = useState<DetailOpenAlertProps[]>([]);
   const [indexCurrent, setIndexCurrent] = useState<boolean>(false);
 
   const [alertType, setAlertType] = useState<AlertCustomType | ''>('');
@@ -126,7 +124,6 @@ export const AlertCustomProvider = ({ children }: AlertCustomProviderProps) => {
         openAlert,
         closeAlert,
         isOpenMulti,
-        isCloseMulti,
         openMultiAlert,
         closeMultiAlert,
       }}
