@@ -14,7 +14,7 @@ const IconInfo = (props: IconProps) => {
       transform="rotate(180)"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+      <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
       <g id="SVGRepo_iconCarrier">
         <title>info</title>
         <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">

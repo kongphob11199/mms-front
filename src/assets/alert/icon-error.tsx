@@ -20,7 +20,7 @@ const IconError = (props: IconProps) => {
       }}
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+      <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
       <g id="SVGRepo_iconCarrier">
         <rect id="Icons" x="-704" y="-64" width="1280" height="800" style={{ fill: 'none' }}></rect>
         <g id="Icons1">

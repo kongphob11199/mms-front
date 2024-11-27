@@ -19,7 +19,7 @@ import dayjs from 'dayjs';
 import { ConvertTimeToTimestamp } from '../../../utils/time-utils';
 import { Gender } from '../../../proto/enum_pb';
 import { userGRPC } from '../../../api/gapi/user.gapi';
-import { ROUTES } from '../../../routes/route-path';
+import { ROUTES_PATH } from '../../../routes/route-path';
 import { useNavigate } from 'react-router-dom';
 
 const initRegsiter = {
@@ -142,7 +142,7 @@ const RegisterSection = () => {
             title: t('REGISTER.MESSAGE.SUCCESS'),
             subTitle: t('REGISTER.MESSAGE.SUCCESS'),
           },
-          after: () => navigate(ROUTES.AUTH.LOGIN),
+          after: () => navigate(ROUTES_PATH.AUTH.LOGIN),
         });
       })
       .catch((error) => {
