@@ -19,6 +19,8 @@ import dayjs from 'dayjs';
 import { ConvertTimeToTimestamp } from '../../../utils/time-utils';
 import { Gender } from '../../../proto/enum_pb';
 import { userGRPC } from '../../../api/gapi/user.gapi';
+import { ROUTES } from '../../../routes/route-path';
+import { useNavigate } from 'react-router-dom';
 
 const initRegsiter = {
   username: '',
@@ -42,8 +44,10 @@ const initRegsiterError = {
 
 const RegisterSection = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
   const { colors } = useThemeCustom();
-  const { openMultiAlert } = useAlertCustom();
+  const { openMultiAlert, openAlert } = useAlertCustom();
   const [loading, setLoading] = useState<boolean>(false);
 
   const [isHidePassword, setIsHidePassword] = useState<boolean>(true);
@@ -54,13 +58,21 @@ const RegisterSection = () => {
 
   const handleCheckErrorSubmit = () => {
     const checkErr = errorMsg;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
 
     if (dataRegister.username === '' || !dataRegister.username) {
       checkErr.username = t('REGISTER.MESSAGE.USERNAME');
+    } else if (dataRegister.username.length < 4) {
+      checkErr.username = t('REGISTER.MESSAGE.USERNAME_LENGTH');
     }
 
-    if (dataRegister.password === '' || !dataRegister.password) {
+    if (dataRegister.password !== dataRegister.confirmPassword) {
+      checkErr.password = t('REGISTER.MESSAGE.PASSWORD_NOT_MATCH');
+      checkErr.confirmPassword = t('REGISTER.MESSAGE.PASSWORD_NOT_MATCH');
+    } else if (dataRegister.password === '' || !dataRegister.password) {
       checkErr.password = t('REGISTER.MESSAGE.PASSWORD');
+    } else if (!passwordRegex.test(dataRegister.password)) {
+      checkErr.password = t('REGISTER.MESSAGE.PASSWORD_CHECK');
     }
 
     if (dataRegister.confirmPassword === '' || !dataRegister.confirmPassword) {
@@ -79,7 +91,7 @@ const RegisterSection = () => {
       checkErr.birth = t('REGISTER.MESSAGE.BIRTHDAY');
     }
 
-    if (dataRegister.gender === null || !dataRegister.gender.value) {
+    if (dataRegister.gender === null || (!dataRegister.gender.value && dataRegister.gender.value !== 0)) {
       checkErr.gender = t('REGISTER.MESSAGE.GENDER');
     }
 
@@ -107,7 +119,7 @@ const RegisterSection = () => {
       return setLoading(false);
     }
 
-    if (dataRegister.gender === null || !dataRegister.gender.value) {
+    if (dataRegister.gender === null || (!dataRegister.gender.value && dataRegister.gender.value !== 0)) {
       return setLoading(false);
     }
 
@@ -115,20 +127,36 @@ const RegisterSection = () => {
     newReq.setFirstname(dataRegister.firstname);
     newReq.setLastname(dataRegister.lastname);
     newReq.setGender(dataRegister.gender.value as Gender);
-    // newReq.setGender(Gender.FEMALE);
     newReq.setBirthday(ConvertTimeToTimestamp(dayjs(dataRegister.birth)));
     newReq.setUsername(dataRegister.username);
     newReq.setPassword(dataRegister.password);
-    console.log('222 newReq', newReq.toObject(), dataRegister.gender?.valueOf());
-    // await userGRPC
-    //   .createUserCustomer(newReq)
-    //   .then((data) => {
-    //     console.log('222 ', data); // Handle successful response
-    //   })
-    //   .catch((error) => {
-    //     console.error('222 Error:', error); // Handle error
-    //   })
-    //   .finally(() => setLoading(false));
+
+    await userGRPC
+      .createUserCustomer(newReq)
+      .then((data) => {
+        openAlert({
+          buttonCancel: false,
+          noTime: true,
+          status: 'SUCCESS',
+          infoAlert: {
+            title: t('REGISTER.MESSAGE.SUCCESS'),
+            subTitle: t('REGISTER.MESSAGE.SUCCESS'),
+          },
+          after: () => navigate(ROUTES.AUTH.LOGIN),
+        });
+      })
+      .catch((error) => {
+        openAlert({
+          buttonCancel: false,
+          noTime: true,
+          status: 'ERROR',
+          infoAlert: {
+            title: t('REGISTER.MESSAGE.ERROR'),
+            subTitle: t(`REGISTER.MESSAGE.${error.message}`),
+          },
+        });
+      })
+      .finally(() => setLoading(false));
   };
 
   const handleChangeDataRegisterInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -290,7 +318,7 @@ const RegisterSection = () => {
           </Grid2>
         </Grid2>
         <Box textAlign="center">
-          <ButtonCustom onClick={onSubmitRegister} sx={{ fontSize: '17px', minWidth: '300px' }} disabled={loading}>
+          <ButtonCustom onClick={onSubmitRegister} fullWidth sx={{ fontSize: '17px' }} disabled={loading}>
             {t('BUTTON.REGISTER')}
           </ButtonCustom>
         </Box>

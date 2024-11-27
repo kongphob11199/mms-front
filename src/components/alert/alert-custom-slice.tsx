@@ -1,7 +1,8 @@
 import { Box } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { DetailOpenAlertProps, useAlertCustom } from './use-alert-custom';
 import { useThemeCustom } from '../../theme/theme-context';
+import { ThemeColosStatus } from '../../theme/color';
 
 const AlertCustomSlice = () => {
   const { isOpenMulti } = useAlertCustom();
@@ -35,24 +36,33 @@ type AlertSliceProps = {
 };
 
 const AlertSlice = (props: AlertSliceProps) => {
+  const { item } = props;
   const { colors } = useThemeCustom();
   // const { isOpenMulti, isCloseMulti, closeMultiAlert } = useAlertCustom();
   const [isShow, setIsShow] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (isShow) {
-      setTimeout(() => {
-        setIsShow(false);
-      }, 2000);
-      // setTimeout(() => {
-      //   closeMultiAlert(props.index);
-      // }, 2300);
-    }
-  }, [isShow]);
+  // useEffect(() => {
+  //   if (isShow) {
+  //     setTimeout(() => {
+  //       setIsShow(false);
+  //     }, 2000);
+  //     // setTimeout(() => {
+  //     //   closeMultiAlert(props.index);
+  //     // }, 2300);
+  //   }
+  // }, [isShow]);
 
   useEffect(() => {
     setIsShow(true);
   }, []);
+
+  const renderColorItem = useCallback(() => {
+    if (!item?.status) {
+      return colors.status.error;
+    }
+
+    return colors.status[item.status.toLowerCase() as ThemeColosStatus];
+  }, [item?.status, colors]);
 
   return (
     <Box
@@ -83,14 +93,14 @@ const AlertSlice = (props: AlertSliceProps) => {
         //   }, 300);
         // }}
         sx={{
-          backgroundColor: colors.error,
+          backgroundColor: renderColorItem(),
           position: 'absolute',
           left: '0',
           width: '15px',
           height: '100%',
         }}
       ></Box>
-      <Box>{props.item?.component} </Box>
+      <Box>{item?.component} </Box>
     </Box>
   );
 };

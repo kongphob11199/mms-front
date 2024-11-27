@@ -1,11 +1,14 @@
 export type ThemeType = 'dark' | 'light';
 
-export type ThemeColorsType = 'primary' | 'secondary';
+export type ThemeColorsType = 'primary' | 'secondary' | 'third';
+
+export type ThemeColosStatus = 'success' | 'warning' | 'info' | 'error' | 'cancel';
+
 export interface ThemeColors {
   bg: string;
   bgSub: string;
   bgSubItem: string;
-  bgBlur: string
+  bgBlur: string;
   //
   primary: string;
   primary_100: string;
@@ -20,6 +23,13 @@ export interface ThemeColors {
   secondary_300: string;
   secondary_400: string;
   secondary_500: string;
+  //
+  third: string;
+  third_100: string;
+  third_200: string;
+  third_300: string;
+  third_400: string;
+  third_500: string;
   //
   text: string;
   textSub: string;
@@ -55,12 +65,7 @@ export interface ThemeColors {
   gray: string;
   gray_100: string;
   //
-  status: {
-    success: string;
-    warning: string;
-    info: string;
-    error: string;
-  };
+  status: Record<ThemeColosStatus, string>;
 }
 
 const boxShadow = {
@@ -72,21 +77,30 @@ const boxShadow = {
 };
 
 const primaryColors = {
-  primary: '#05B3A7',
-  primary_100: '#2FC0B6',
-  primary_200: '#58CCC4',
-  primary_300: '#82D9D3',
-  primary_400: '#ACE6E2',
-  primary_500: '#D5F2F0',
+  primary: '#6110E5',
+  primary_100: '#6230E2',
+  primary_200: '#6250DE',
+  primary_300: '#6370DB',
+  primary_400: '#6381DA',
+  primary_500: '#6391D8',
 };
 
 const secondaryColors = {
-  secondary: '#1E15C9',
-  secondary_100: '#433CD2',
-  secondary_200: '#6963DB',
-  secondary_300: '#8F8AE4',
-  secondary_400: '#B4B1ED',
-  secondary_500: '#DAD8F6',
+  secondary: '#372df5',
+  secondary_100: '#3E49EF',
+  secondary_200: '#4465EA',
+  secondary_300: '#4B81E4',
+  secondary_400: '#519DDF',
+  secondary_500: '#58B9D9',
+};
+
+const thirdColors = {
+  third: '#05B3A7',
+  third_100: '#2FC0B6',
+  third_200: '#58CCC4',
+  third_300: '#82D9D3',
+  third_400: '#ACE6E2',
+  third_500: '#D5F2F0',
 };
 
 const disabledColors = {
@@ -117,7 +131,7 @@ const bgColorsDark = {
   bg: '#090c14',
   bgSub: '#0C131E',
   bgSubItem: '#101928',
-  bgBlur: "#00000073",
+  bgBlur: '#00000073',
 };
 
 const textColorsDark = {
@@ -143,6 +157,7 @@ const statusColors = {
     warning: '#ebce0f',
     info: '#37a0e1',
     error: '#dd2515',
+    cancel: '#1f1f1f',
   },
 };
 
@@ -150,6 +165,7 @@ export const darkTheme: ThemeColors = {
   ...bgColorsDark,
   ...primaryColors,
   ...secondaryColors,
+  ...thirdColors,
   ...textColorsDark,
   ...disabledColors,
   ...blackColors,
@@ -164,7 +180,7 @@ const bgColorsLight = {
   bg: '#ffffff',
   bgSub: '#ffffff',
   bgSubItem: '#ffffff',
-  bgBlur: "#00000073",
+  bgBlur: '#00000073',
 };
 
 const textColorsLight = {

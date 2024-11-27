@@ -1,38 +1,50 @@
 import { Button, ButtonProps, styled } from '@mui/material';
 import { useThemeCustom } from '../../theme/theme-context';
 import { adjustColor, adjustOpacity } from '../../utils/color-utils';
-import { ThemeColorsType } from '../../theme/color';
+import { ThemeColorsType, ThemeColosStatus } from '../../theme/color';
 
 type BtnShadowProps = 'btn-shadow' | 'btn-shadow-better' | 'btn-shadow-default' | 'none';
 
 export type ButtonCustomProps = ButtonProps & {
   btnshadow?: BtnShadowProps;
   typecolor?: ThemeColorsType;
+  status?: ThemeColosStatus | 'default';
 };
 
 const ButtomCustomDefault = (props: ButtonCustomProps) => (
-  <Button variant="contained" {...props}>
+  <Button variant="contained" status={'default'} {...props}>
     {props.children}
   </Button>
 );
 
-const ButtonCustom = styled(ButtomCustomDefault)(({ theme, btnshadow, typecolor }) => {
+const ButtonCustom = styled(ButtomCustomDefault)(({ theme, btnshadow, typecolor, status = 'default', variant = 'contained' }) => {
   const { colors } = useThemeCustom();
 
   const colorTypeBtn = typecolor || 'primary';
-  const colorBtn = colors[colorTypeBtn];
+  const colorStatus = status === 'default' || !status ? colors[colorTypeBtn] : colors.status[status];
+  const colorBtn = colorStatus;
 
-  const styleBtn = renderBtnShadow(colorBtn, btnshadow);
+  const styleBtn = variant !== 'contained' ? { ':hover': {} } : renderBtnShadow(colorBtn, btnshadow);
 
   return {
-    backgroundColor: colorBtn,
     transition: 'all 0.3s ease-in-out',
+    '&.MuiButtonBase-root.MuiButton-root.MuiButton-contained': {
+      backgroundColor: colorBtn,
+    },
     '&.MuiButtonBase-root.MuiButton-root.MuiButton-contained.Mui-disabled': {
       backgroundColor: colors.disabled,
       color: colors.gray_100,
     },
+    '&.MuiButtonBase-root.MuiButton-root.MuiButton-outlined': {
+      backgroundColor: 'transparent',
+      borderColor: colorBtn,
+      color: colorBtn,
+    },
     ...styleBtn,
     ':hover': {
+      '&.MuiButtonBase-root.MuiButton-root.MuiButton-outlined': {
+        backgroundColor: adjustOpacity(colorBtn, 0.15),
+      },
       ...styleBtn[':hover'],
     },
   };
@@ -61,7 +73,7 @@ const renderBtnShadow = (color: string, btnShadow?: BtnShadowProps) => {
     boxShadow: ``,
     ':hover': {
       backgroundColor: adjustColor(color, -30),
-      boxShadow: ` 0 8px 16px 0 ${adjustOpacity(adjustColor(color, -30), 0.3)}`,
+      boxShadow: ` 0 4px 8px 0 ${adjustOpacity(adjustColor(color, -30), 0.3)}`,
     },
   };
 

@@ -16,7 +16,7 @@ const Auth = (props: AuthProps) => {
   const onCheckTokenUser = useCallback(() => {
     const token = localStorage.getItem(KEY_STORAGE.TOKEN) || null;
     if (!token && !pathPassToken.includes(location.pathname)) {
-      // navigate(ROUTES_PATH.AUTH.LOGIN);
+      navigate(ROUTES_PATH.AUTH.LOGIN);
     }
   }, [location.pathname, navigate, pathPassToken]);
 

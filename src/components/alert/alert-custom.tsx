@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { styled, Box } from '@mui/material';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { styled, Box, useTheme } from '@mui/material';
 import { AlertDetailProps, useAlertCustom } from './use-alert-custom';
 
 import IconSuccess from '../../assets/alert/icon-success';
@@ -26,6 +26,9 @@ const AlertCustoms = styled(Box)<{}>(({ theme }) => ({
   justifyContent: 'center',
   alignItems: 'center',
   padding: '10%',
+  [theme.breakpoints.down('sm')]: {
+    padding: '16px',
+  },
 }));
 
 type AlertCustomProps = AlertDetailProps;
@@ -33,10 +36,10 @@ type AlertCustomProps = AlertDetailProps;
 const AlertCustom = (props: AlertCustomProps) => {
   const { t } = useTranslation();
   const { colors } = useThemeCustom();
-  const { isOpen, closeAlert, openAlert } = useAlertCustom();
+  const { isOpen, closeAlert } = useAlertCustom();
   const {
     infoAlert,
-    noTime = true,
+    noTime,
     disabledClikOutSide = true,
     status = 'INFO',
     showCloseButton = true,
@@ -45,41 +48,49 @@ const AlertCustom = (props: AlertCustomProps) => {
     buttonEnterText = t('BUTTON.OK'),
     buttonCancel = true,
     buttonCancelText = t('BUTTON.CANCEL'),
+    component,
   } = props;
   const newTime = props?.time || 2000;
   const alertRef = useRef<HTMLElement | null>(null);
+  const theme = useTheme();
 
   const [isShow, setIsShow] = useState<boolean>(false);
 
-  const onCloseAlert = (time?: boolean) => {
-    const times = time ? newTime + 200 : 200;
+  const timeoutRef = useRef<any>(null);
 
-    setTimeout(() => {
-      closeAlert();
-      props?.after && props?.after();
-    }, times);
-  };
-
-  useEffect(() => {
-    if (isShow && (noTime || props?.time)) {
+  const onCloseAlert = useCallback(
+    (time?: boolean) => {
+      const delayTime = time ? newTime : 0;
+      const times = time ? newTime + 200 : 200;
       setTimeout(() => {
         setIsShow(false);
-      }, newTime);
-      onCloseAlert(true);
-    }
-  }, [isShow]);
+      }, delayTime);
+
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      timeoutRef.current = setTimeout(() => {
+        closeAlert();
+        props?.after && props?.after();
+        timeoutRef.current = null;
+      }, times);
+    },
+    [newTime, closeAlert, props]
+  );
 
   useEffect(() => {
     if (isOpen) {
       setIsShow(isOpen);
+      if (!noTime) {
+        onCloseAlert(true);
+      }
     }
-  }, [isOpen]);
+  }, [isOpen, noTime, onCloseAlert]);
 
   useClickOutSide({
     ref: alertRef,
     handler: () => {
       if (disabledClikOutSide) {
-        setIsShow(false);
         onCloseAlert();
       }
     },
@@ -110,17 +121,24 @@ const AlertCustom = (props: AlertCustomProps) => {
           ref={alertRef}
           sx={{
             width: 'fit-content',
-            minWidth: '250px',
+            minWidth: '350px',
             height: 'fit-content',
             backgroundColor: colors.bgSubItem,
             borderRadius: '10px',
             transition: 'all 0.2s ease-in-out',
             opacity: isShow ? '1' : '0',
-            padding: '16px',
+            padding: '24px',
             color: colors.text,
             position: 'relative',
             boxShadow: colors.bs_5,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '8px',
             ...props?.styleContainerAlert,
+            [theme.breakpoints.down('sm')]: {
+              maxWidth: '100%',
+              minWidth: '100%',
+            },
           }}
         >
           {showCloseButton && (
@@ -132,8 +150,6 @@ const AlertCustom = (props: AlertCustomProps) => {
                 cursor: 'pointer',
               }}
               onClick={() => {
-                console.log('222 ccc');
-                setIsShow(false);
                 onCloseAlert();
               }}
             >
@@ -142,38 +158,44 @@ const AlertCustom = (props: AlertCustomProps) => {
           )}
           <Box sx={{ textAlign: 'center' }}>{renderIconAlert()}</Box>
 
-          {infoAlert?.title && (
-            <Box
-              sx={{
-                textAlign: 'center',
-                fontSize: '28px',
-                fontWeight: '700',
-              }}
-            >
-              {infoAlert.title}
-            </Box>
-          )}
-          {infoAlert?.subTitle && <Box sx={{ textAlign: 'center' }}>{infoAlert.subTitle}</Box>}
+          <Box display={infoAlert?.title || infoAlert?.subTitle ? 'block' : 'none'}>
+            {infoAlert?.title && (
+              <Box
+                sx={{
+                  textAlign: 'center',
+                  fontSize: '28px',
+                  fontWeight: '700',
+                }}
+              >
+                {infoAlert.title}
+              </Box>
+            )}
+            {infoAlert?.subTitle && <Box sx={{ textAlign: 'center' }}>{infoAlert.subTitle}</Box>}
+          </Box>
+
+          {component}
           {showButton && (
             <Box
               sx={{
                 display: 'flex',
                 justifyContent: 'center',
-                gap: '12px',
+                gap: '16px',
                 marginTop: '16px',
               }}
             >
-              {buttonCancel && (
+              {buttonEnter && (
                 <ButtonCustom
-                  variant="outlined"
-                  {...props?.buttonCancelProps}
+                  // status="success"
+                  typecolor="secondary"
+                  btnshadow="none"
+                  {...props?.buttonEnterProps}
                   onClick={(event) => {
-                    props?.handleCancel && props?.handleCancel(event);
-                    props?.buttonCancelProps?.onClick && props?.buttonCancelProps?.onClick(event);
+                    props?.handleSubmit && props?.handleSubmit(event);
+                    props?.buttonEnterProps?.onClick && props?.buttonEnterProps?.onClick(event);
                     onCloseAlert();
                   }}
                 >
-                  {buttonCancelText}
+                  {buttonEnterText}
                 </ButtonCustom>
               )}
               {props?.buttonOther && (
@@ -188,16 +210,18 @@ const AlertCustom = (props: AlertCustomProps) => {
                   {props?.buttonOtherText || ''}
                 </ButtonCustom>
               )}
-              {buttonEnter && (
+              {buttonCancel && (
                 <ButtonCustom
-                  {...props?.buttonEnterProps}
+                  variant="outlined"
+                  status="cancel"
+                  {...props?.buttonCancelProps}
                   onClick={(event) => {
-                    props?.handleSubmit && props?.handleSubmit(event);
-                    props?.buttonEnterProps?.onClick && props?.buttonEnterProps?.onClick(event);
+                    props?.handleCancel && props?.handleCancel(event);
+                    props?.buttonCancelProps?.onClick && props?.buttonCancelProps?.onClick(event);
                     onCloseAlert();
                   }}
                 >
-                  {buttonEnterText}
+                  {buttonCancelText}
                 </ButtonCustom>
               )}
             </Box>

@@ -12,7 +12,7 @@ const LabelError = (props: LabelErrorProps) => {
   const { text } = props;
   const { colors } = useThemeCustom();
   return (
-    <Box display="flex" alignItems="center" gap="4px" color={colors.error} sx={{ svg: { marginTop: '2px', width: '14px', height: '14px' } }}>
+    <Box display="flex" alignItems="center" gap="4px" color={colors.error} sx={{ fontSize: '12px', margin: '3px 0 0 14px', svg: { marginTop: '2px', width: '14px', height: '14px' } }}>
       <InfoIcon />
       {text}
     </Box>

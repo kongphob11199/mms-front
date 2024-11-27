@@ -6,6 +6,7 @@ import { Popper, styled, SxProps } from '@mui/material';
 import { useThemeCustom } from '../../theme/theme-context';
 import { getLanguageCurrent } from '../../utils/lang-utils';
 import LabelError from '../label/label-error';
+import InputCustom from './input-custom';
 
 type InputDateCustomProps = {
   disabled?: boolean;
@@ -73,6 +74,7 @@ const InputDateCustomDefault = (props: InputDateCustomProps) => {
               </PopperDatePickerCustoms>
             );
           },
+          textField: (textField) => <InputCustom {...textField} helperText={props?.helperText && props.helperText.toString()} />,
           ...props?.slots,
         }}
       />

@@ -1,4 +1,4 @@
-import { TextField, TextFieldProps } from '@mui/material';
+import { Box, TextField, TextFieldProps } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useThemeCustom } from '../../theme/theme-context';
 import { useCallback } from 'react';
@@ -27,7 +27,8 @@ const InputCustomDefault = <Variant extends 'outlined' | 'filled' | 'standard' =
 
   return (
     <>
-      <TextField {...props} {...propSlotProps()} error={props?.error || !!props?.helperText} helperText={props?.helperText && <LabelError text={props.helperText.toString()} />} />
+      <TextField {...props} {...propSlotProps()} error={props?.error || !!props?.helperText} helperText={''} />
+      {props?.helperText && <LabelError text={props.helperText.toString()} />}
     </>
   );
 };

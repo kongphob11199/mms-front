@@ -9,15 +9,22 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
+const handleThemeSetColor = (theme: ThemeColors): ThemeColors => {
+  theme.status.cancel = theme.textSubItem;
+  return theme;
+};
+
 export const ThemeCustomProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const storedTheme = localStorage.getItem(KEY_STORAGE.THEME) || '1';
   const initialTheme = storedTheme === '0' ? lightTheme : darkTheme;
 
-  const [theme, setTheme] = useState<ThemeColors>(initialTheme);
+  const [theme, setTheme] = useState<ThemeColors>(handleThemeSetColor(initialTheme));
 
   const handleChangeTheme = (type?: ThemeType) => {
-    const newTheme = storedTheme === '0' ? darkTheme : lightTheme;
+    const objTheme = storedTheme === '0' ? darkTheme : lightTheme;
+    const newTheme = handleThemeSetColor(objTheme);
     const newThemeType = storedTheme === '0' ? '1' : '0';
+
     localStorage.setItem(KEY_STORAGE.THEME, newThemeType);
     setTheme(newTheme);
   };
