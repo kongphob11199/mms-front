@@ -9,14 +9,47 @@ import ButtonCustom from '../../../components/button/button-custom';
 
 import { adjustOpacity } from '../../../utils/color-utils';
 import CardCustom from '../../../components/card/card-custom';
+import { authGRPC } from '../../../api/gapi/auth.gapi';
+import { LoginRequest } from '../../../proto/auth_pb';
 
 type Props = {};
 
 const LoginSection = (props: Props) => {
   const { t } = useTranslation();
   const { colors, handleChangeTheme } = useThemeCustom();
+  const [loading, setLoading] = useState(false);
 
+  const [dataLogin, setDataLogin] = useState({ username: '', password: '' });
+  const [errorMsg, setErrorMsg] = useState({ username: '', password: '' });
   const [isHidePassword, setIsHidePassword] = useState<boolean>(true);
+
+  const handleChangeDataLogin = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDataLogin((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setErrorMsg((prev) => ({ ...prev, [e.target.name]: '' }));
+  };
+
+  const submitLogin = async () => {
+    if (!dataLogin.username || !dataLogin.password) {
+      setErrorMsg((prev) => ({ ...prev, username: !dataLogin.username ? t('REGISTER.MESSAGE.USERNAME') : '', password: !dataLogin.password ? t('REGISTER.MESSAGE.PASSWORD') : '' }));
+    } else {
+      setLoading(true);
+      const newReq = new LoginRequest();
+      newReq.setUsername(dataLogin.username);
+      newReq.setPassword(dataLogin.password);
+      await authGRPC
+        .login(newReq)
+        .then((res) => {
+          console.log('222 res', res);
+        })
+        .catch((error) => {
+          console.log('222 error', error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  };
+
   return (
     <Box width="100%" height="100%" display="flex">
       <Box
@@ -55,13 +88,17 @@ const LoginSection = (props: Props) => {
             <Typography variant="h5">{t('เข้าสู่ระบบ')}</Typography>
           </Box>
           <Box>
-            <InputCustom fullWidth label={t('บัญชีผู้ใช้')} />
+            <InputCustom fullWidth name={'username'} label={t('บัญชีผู้ใช้')} value={dataLogin.username} onChange={handleChangeDataLogin} helperText={errorMsg.username} />
           </Box>
           <Box>
             <InputCustom
               fullWidth
+              name={'password'}
               label={t('รหัสผ่าน')}
               type={isHidePassword ? 'password' : 'text'}
+              value={dataLogin.password}
+              onChange={handleChangeDataLogin}
+              helperText={errorMsg.password}
               endadornment={
                 <IconButton sx={{ color: colors.text, padding: 0 }} onClick={() => setIsHidePassword(!isHidePassword)}>
                   {isHidePassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
@@ -70,7 +107,7 @@ const LoginSection = (props: Props) => {
             />
           </Box>
           <Box marginTop="16px">
-            <ButtonCustom fullWidth onClick={() => handleChangeTheme()} btnshadow="btn-shadow-better" sx={{ fontSize: '17px' }}>
+            <ButtonCustom fullWidth onClick={() => submitLogin()} btnshadow="btn-shadow-better" sx={{ fontSize: '17px' }}>
               {t('เข้าสู่ระบบ')}
             </ButtonCustom>
           </Box>
