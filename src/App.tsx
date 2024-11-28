@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import Auth from './auth/auth';
 import { HelmetProvider } from 'react-helmet-async';
 import { AlertCustomProvider } from './components/alert/use-alert-custom';
+import { useEffect } from 'react';
 
 function App() {
   return (

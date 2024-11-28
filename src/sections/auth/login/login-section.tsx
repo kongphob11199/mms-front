@@ -9,12 +9,11 @@ import ButtonCustom from '../../../components/button/button-custom';
 
 import { adjustOpacity } from '../../../utils/color-utils';
 import CardCustom from '../../../components/card/card-custom';
-import { authGRPC } from '../../../api/gapi/auth.gapi';
 import { LoginRequest } from '../../../proto/auth_pb';
+import { authGRPC } from '../../../api/gapi/auth.gapi';
+import { setToken } from '../../../utils/app-utils';
 
-type Props = {};
-
-const LoginSection = (props: Props) => {
+const LoginSection = () => {
   const { t } = useTranslation();
   const { colors, handleChangeTheme } = useThemeCustom();
   const [loading, setLoading] = useState(false);
@@ -39,7 +38,7 @@ const LoginSection = (props: Props) => {
       await authGRPC
         .login(newReq)
         .then((res) => {
-          console.log('222 res', res);
+          setToken(res.token);
         })
         .catch((error) => {
           console.log('222 error', error);
