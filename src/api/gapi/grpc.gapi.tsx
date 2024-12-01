@@ -4,7 +4,9 @@ import { getToken } from '../../utils/app-utils';
 export const metaDataGrpc = (metadata: Metadata = {}) => {
   const token = getToken();
   if (token) {
-    metadata['Authorization'] = `Bearer ${token}`;
+    metadata['authorization'] = `Bearer ${token}`;
   }
   return metadata;
 };
+
+export const EnvoyURL = process.env.REACT_APP_ENVOY_URL || '';

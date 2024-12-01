@@ -1,0 +1,17 @@
+{
+    "LOGIN": {
+        "LOGIN_TITLE": "Login",
+        "FORM": {
+            "USERNAME": "Username",
+            "PASSWORD": "Password"
+        },
+        "BUTTON": {
+            "LOGIN": "Login"
+        },
+        "MESSAGE": {
+            "NOTFOUND_USER_LOGIN": "Username not found or incorrect password",
+            "INVALID_PASSWORD_LOGIN": "Username not found or incorrect password",
+            "ERROR": "An error occurred"
+        }
+    }
+}

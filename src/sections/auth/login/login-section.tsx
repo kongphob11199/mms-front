@@ -12,11 +12,17 @@ import CardCustom from '../../../components/card/card-custom';
 import { LoginRequest } from '../../../proto/auth_pb';
 import { authGRPC } from '../../../api/gapi/auth.gapi';
 import { setToken } from '../../../utils/app-utils';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES_PATH } from '../../../routes/route-path';
+import Loading from '../../../components/load/loading';
+import { useAlertCustom } from '../../../components/alert/use-alert-custom';
 
 const LoginSection = () => {
   const { t } = useTranslation();
+  const { openMultiAlert } = useAlertCustom();
   const { colors, handleChangeTheme } = useThemeCustom();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const [dataLogin, setDataLogin] = useState({ username: '', password: '' });
   const [errorMsg, setErrorMsg] = useState({ username: '', password: '' });
@@ -39,9 +45,15 @@ const LoginSection = () => {
         .login(newReq)
         .then((res) => {
           setToken(res.token);
+          navigate(ROUTES_PATH.MAIN.HOME);
         })
         .catch((error) => {
-          console.log('222 error', error);
+          setDataLogin((prev) => ({ username: '', password: '' }));
+          const msg = ['NOTFOUND_USER_LOGIN', 'INVALID_PASSWORD_LOGIN'];
+          const msgError = msg.some((item) => item === error.message) ? error.message : 'ERROR';
+          openMultiAlert({
+            component: <Typography>{t(`LOGIN.MESSAGE.${msgError}`)}</Typography>,
+          });
         })
         .finally(() => {
           setLoading(false);
@@ -51,6 +63,7 @@ const LoginSection = () => {
 
   return (
     <Box width="100%" height="100%" display="flex">
+      <Loading show={loading} />
       <Box
         width={{ md: '30%', xs: '0' }}
         height="100%"
@@ -84,16 +97,16 @@ const LoginSection = () => {
           }}
         >
           <Box marginBottom="16px" textAlign="center">
-            <Typography variant="h5">{t('เข้าสู่ระบบ')}</Typography>
+            <Typography variant="h5">{t('LOGIN.LOGIN_TITLE')}</Typography>
           </Box>
           <Box>
-            <InputCustom fullWidth name={'username'} label={t('บัญชีผู้ใช้')} value={dataLogin.username} onChange={handleChangeDataLogin} helperText={errorMsg.username} />
+            <InputCustom fullWidth name={'username'} label={t('LOGIN.FORM.USERNAME')} value={dataLogin.username} onChange={handleChangeDataLogin} helperText={errorMsg.username} />
           </Box>
           <Box>
             <InputCustom
               fullWidth
               name={'password'}
-              label={t('รหัสผ่าน')}
+              label={t('LOGIN.FORM.PASSWORD')}
               type={isHidePassword ? 'password' : 'text'}
               value={dataLogin.password}
               onChange={handleChangeDataLogin}
@@ -107,7 +120,7 @@ const LoginSection = () => {
           </Box>
           <Box marginTop="16px">
             <ButtonCustom fullWidth onClick={() => submitLogin()} btnshadow="btn-shadow-better" sx={{ fontSize: '17px' }}>
-              {t('เข้าสู่ระบบ')}
+              {t('LOGIN.BUTTON.LOGIN')}
             </ButtonCustom>
           </Box>
         </CardCustom>

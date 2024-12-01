@@ -17,17 +17,17 @@ const Auth = (props: AuthProps) => {
 
   const onCheckTokenUser = useCallback(async () => {
     const token = getToken();
-    if (!token && !pathPassToken.includes(location.pathname)) {
-      navigate(ROUTES_PATH.AUTH.LOGIN);
+    if (!token) {
+      if (!pathPassToken.some((item) => item === location.pathname)) {
+        navigate(ROUTES_PATH.AUTH.LOGIN);
+      }
     } else {
-      await authGRPC
-        .checkAuth()
-        .then((res) => {
-          console.log('222 res', res);
-        })
-        .catch((error) => {
-          console.log('222 error', error);
-        });
+      await authGRPC.checkAuth().catch((error) => {
+        navigate(ROUTES_PATH.AUTH.LOGIN);
+      });
+      if (pathPassToken.some((item) => item === location.pathname)) {
+        navigate(ROUTES_PATH.MAIN.HOME);
+      }
     }
   }, [location.pathname, navigate, pathPassToken]);
 

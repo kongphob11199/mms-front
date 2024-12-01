@@ -1,9 +1,8 @@
 import { AuthServiceClient } from '../../proto/AuthServiceClientPb';
 import { EmptyAuth, LoginRequest, LoginResponse } from '../../proto/auth_pb';
 import { StatusResponse } from '../../proto/enum_pb';
-import { metaDataGrpc } from './grpc.gapi';
+import { EnvoyURL, metaDataGrpc } from './grpc.gapi';
 
-const EnvoyURL = process.env.REACT_APP_ENVOY_URL || '';
 const client = new AuthServiceClient(EnvoyURL);
 
 export const authGRPC = {
@@ -22,7 +21,13 @@ export const authGRPC = {
     return new Promise((resolve, reject) => {
       const metadata = metaDataGrpc();
       const req = new EmptyAuth();
-      client.checkAuth(req, metadata, (err, response) => {});
+      client.checkAuth(req, metadata, (err, response) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(response.toObject());
+        }
+      });
     });
   },
 };
