@@ -16,6 +16,7 @@ const Auth = (props: AuthProps) => {
   const pathPassToken = useMemo(() => [ROUTES_PATH.AUTH.ROOT, ROUTES_PATH.AUTH.LOGIN, ROUTES_PATH.AUTH.REGISTER], []);
 
   const onCheckTokenUser = useCallback(async () => {
+    console.log('222 come auth func');
     const token = getToken();
     if (!token) {
       if (!pathPassToken.some((item) => item === location.pathname)) {
@@ -32,6 +33,7 @@ const Auth = (props: AuthProps) => {
   }, [location.pathname, navigate, pathPassToken]);
 
   useEffect(() => {
+    console.log('222 come auth');
     onCheckTokenUser();
   }, [onCheckTokenUser]);
 

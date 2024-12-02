@@ -8,6 +8,7 @@ export interface ThemeColors {
   bg: string;
   bgSub: string;
   bgSubItem: string;
+  bgMenu: string;
   bgBlur: string;
   //
   primary: string;
@@ -131,6 +132,7 @@ const bgColorsDark = {
   bg: '#090c14',
   bgSub: '#0C131E',
   bgSubItem: '#101928',
+  bgMenu: '#0a111c',
   bgBlur: '#00000073',
 };
 
@@ -180,6 +182,7 @@ const bgColorsLight = {
   bg: '#ffffff',
   bgSub: '#ffffff',
   bgSubItem: '#ffffff',
+  bgMenu: '#dcdcdc',
   bgBlur: '#00000073',
 };
 

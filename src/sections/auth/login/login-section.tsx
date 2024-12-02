@@ -64,25 +64,7 @@ const LoginSection = () => {
   return (
     <Box width="100%" height="100%" display="flex">
       <Loading show={loading} />
-      <Box
-        width={{ md: '30%', xs: '0' }}
-        height="100%"
-        bgcolor={colors.bgSub}
-        // background: linear-gradient(0deg, rgba(21,58,221,1) 0%, rgba(122,245,174,1) 100%);
-        boxShadow={colors.bs_2}
-        sx={{ transition: 'width 0.2s ease-in-out' }}
-      >
-        <Box
-          display={{ md: 'block', xs: 'none' }}
-          position="relative"
-          height="100%"
-          width="100%"
-          overflow="hidden"
-          sx={{ img: { width: '150%', height: '150%', objectFit: 'cover', objectPosition: 'center' } }}
-        >
-          <Box bgcolor={adjustOpacity(colors.black, 0.2)} sx={{ transition: 'background-color 0.2s ease-in-out' }} color={'#000000'} position="absolute" height="100%" width="100%" />
-        </Box>
-      </Box>
+      <Box width={{ md: '30%', xs: '0' }} height="100%" bgcolor={colors.bgMenu} boxShadow={colors.bs_2} sx={{ transition: 'width 0.2s ease-in-out' }}></Box>
       <Box width={{ md: '70%', xs: '100%' }} height="100%" alignContent="center" padding="16px">
         <CardCustom
           sx={{

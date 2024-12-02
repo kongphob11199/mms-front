@@ -13,7 +13,7 @@ export const ROUTES = {
 export const ROUTES_PATH = {
   MAIN: {
     ROOT: `/${ROUTES.MAIN.ROOT}`,
-    HOME: `/${ROUTES.MAIN.ROOT}/${ROUTES.MAIN.HOME}`,
+    HOME: `/${ROUTES.MAIN.HOME}`,
   },
   AUTH: {
     ROOT: `/${ROUTES.AUTH.ROOT}`,
