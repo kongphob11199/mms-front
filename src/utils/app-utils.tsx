@@ -7,3 +7,7 @@ export const getToken = () => {
 export const setToken = (token: string) => {
   localStorage.setItem(KEY_STORAGE.TOKEN, token);
 };
+
+export const logout = () => {
+  localStorage.removeItem(KEY_STORAGE.TOKEN);
+};
