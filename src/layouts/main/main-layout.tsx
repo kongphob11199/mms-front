@@ -14,7 +14,7 @@ const MainLayout = (props: MainLayoutProps) => {
   const [isOpenNav, setIsOpenNav] = useState(true);
 
   return (
-    <Box width="100vw" height="100vh" bgcolor={colors.bg} color={colors.text} overflow="hidden">
+    <Box width="100vw" height="100vh" bgcolor={colors.bg} color={colors.text} overflow="hidden" display="flex" flexDirection="column">
       <MainNavProfile isOpenNav={isOpenNav} setIsOpenNav={setIsOpenNav} />
       <Grid2 container size={12} height="100%">
         <MainNavMenu isOpenNav={isOpenNav} setIsOpenNav={setIsOpenNav} />

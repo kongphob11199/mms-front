@@ -13,7 +13,7 @@ const MainNavProfile = (props: MainNavProfileProps) => {
   const { isOpenNav, setIsOpenNav } = props;
 
   return (
-    <Box bgcolor={adjustOpacity(colors.bgMenu, 0.7)} width="100%" padding="8px 16px" display="flex" alignItems="center" justifyContent="space-between">
+    <Box bgcolor={adjustOpacity(colors.bgMenu, 0.45)} width="100%" padding="8px 16px" display="flex" alignItems="center" justifyContent="space-between">
       <Box display="flex" alignItems="center" gap="16px">
         <Box>
           <IconButton onClick={() => setIsOpenNav(!isOpenNav)}>
