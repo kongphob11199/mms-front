@@ -1,7 +1,10 @@
 import { Outlet } from 'react-router-dom';
 import { ROUTES } from '../route-path';
 import MainLayout from '../../layouts/main/main-layout';
-import Home from '../../pages/home/home';
+import { lazy } from 'react';
+// import Home from '../../pages/home/home';
+
+const HomePage = lazy(() => import('../../pages/home/home'));
 
 export const mainRoutes = {
   path: ROUTES.MAIN.ROOT,
@@ -13,11 +16,15 @@ export const mainRoutes = {
   children: [
     {
       path: ROUTES.MAIN.ROOT,
-      element: <Home />,
+      element: <HomePage />,
     },
     {
       path: ROUTES.MAIN.HOME,
-      element: <Home />,
+      element: <HomePage />,
+    },
+    {
+      path: ROUTES.MAIN.SETTINGS,
+      element: <div>setting</div>,
     },
   ],
 };

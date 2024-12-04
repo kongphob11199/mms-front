@@ -1,6 +1,7 @@
 {
-    "MENU":{
-        "DASHBOARD":"Dashboard"
-        
-    }
+  "MENU": {
+    "DASHBOARD": "Dashboard",
+    "HOME": "Home",
+    "SETTINGS": "Settings"
+  }
 }

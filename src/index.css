@@ -7,6 +7,10 @@
   font-family: 'Noto Sans Thai Looped', sans-serif !important;
 }
 
+html {
+  -webkit-overflow-scrolling: touch;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -21,27 +25,26 @@ select:-webkit-autofill:focus {
   -webkit-text-fill-color: inherit !important;
 }
 
-::-webkit-scrollbar {
-  /* position: absolute; */
+/* ::-webkit-scrollbar {
   width: 10px;
   border-radius: 12px;
-}
+} */
 
 /* Track */
-::-webkit-scrollbar-track {
-  background: transparent;
-  border-radius: 10px;
-}
+/* ::-webkit-scrollbar-track {
+  background: #7979791d;
+  border-radius: 2px;
+} */
 
 /* Handle */
-::-webkit-scrollbar-thumb {
+/* ::-webkit-scrollbar-thumb {
   transition: all 0.3s ease-in-out;
   cursor: pointer;
-  background-color: #888;
-  border-radius: 10px;
-}
+  background-color: #8888888c;
+  border-radius: 4px;
+} */
 
 /* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background-color: #555;
-}
+/* ::-webkit-scrollbar-thumb:hover {
+  background-color: #55555585;
+} */

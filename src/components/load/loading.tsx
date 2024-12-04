@@ -1,5 +1,4 @@
 import { Box } from '@mui/material';
-import React, { useTransition } from 'react';
 import { useThemeCustom } from '../../theme/theme-context';
 
 type LoadingProps = {
@@ -43,3 +42,12 @@ const Loading = (props: LoadingProps) => {
 };
 
 export default Loading;
+
+export const PageLoading = () => {
+  const { colors } = useThemeCustom();
+  return (
+    <Box bgcolor={colors.bg} width="100vw" height="100vh">
+      <Loading show />
+    </Box>
+  );
+};

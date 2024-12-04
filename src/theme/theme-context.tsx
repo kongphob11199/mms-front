@@ -1,6 +1,7 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { darkTheme, ThemeColors, lightTheme, ThemeType } from './color';
 import { KEY_STORAGE } from '../constants/common';
+import { navVars } from './style/style-nav-vars';
 
 interface ThemeContextType {
   colors: ThemeColors;
@@ -28,6 +29,13 @@ export const ThemeCustomProvider: React.FC<{ children: ReactNode }> = ({ childre
     localStorage.setItem(KEY_STORAGE.THEME, newThemeType);
     setTheme(newTheme);
   };
+
+  useEffect(() => {
+    const root = document.documentElement;
+    Object.entries(navVars(theme)).forEach(([key, value]) => {
+      root.style.setProperty(`--${key}`, value);
+    });
+  }, [theme]);
 
   return <ThemeContext.Provider value={{ colors: theme, handleChangeTheme }}>{children}</ThemeContext.Provider>;
 };

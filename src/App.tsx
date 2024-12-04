@@ -5,7 +5,10 @@ import { BrowserRouter } from 'react-router-dom';
 import Auth from './auth/auth';
 import { HelmetProvider } from 'react-helmet-async';
 import { AlertCustomProvider } from './components/alert/use-alert-custom';
-import { useEffect } from 'react';
+import { Suspense } from 'react';
+import { PageLoading } from './components/load/loading';
+import { GlobalStyles } from '@mui/material';
+import { navVars } from './theme/style/style-nav-vars';
 
 function App() {
   return (
@@ -18,9 +21,12 @@ function App() {
           }}
         >
           <ThemeCustomProvider>
+            {/* <GlobalStyles styles={{ body: { ...navVars } }} /> */}
             <AlertCustomProvider>
               <Auth>
-                <Router />
+                <Suspense fallback={<PageLoading />}>
+                  <Router />
+                </Suspense>
               </Auth>
             </AlertCustomProvider>
           </ThemeCustomProvider>

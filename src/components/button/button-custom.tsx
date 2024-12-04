@@ -28,6 +28,7 @@ const ButtonCustom = styled(ButtomCustomDefault)(({ theme, btnshadow, typecolor,
 
   return {
     transition: 'all 0.3s ease-in-out',
+    color: colors.text,
     '&.MuiButtonBase-root.MuiButton-root.MuiButton-contained': {
       backgroundColor: colorBtn,
     },

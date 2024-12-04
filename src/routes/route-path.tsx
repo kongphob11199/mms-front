@@ -2,6 +2,7 @@ export const ROUTES = {
   MAIN: {
     ROOT: '',
     HOME: 'home',
+    SETTINGS: 'settings',
   },
   AUTH: {
     ROOT: 'auth',
@@ -14,6 +15,7 @@ export const ROUTES_PATH = {
   MAIN: {
     ROOT: `/${ROUTES.MAIN.ROOT}`,
     HOME: `/${ROUTES.MAIN.HOME}`,
+    SETTINGS: `/${ROUTES.MAIN.SETTINGS}`,
   },
   AUTH: {
     ROOT: `/${ROUTES.AUTH.ROOT}`,

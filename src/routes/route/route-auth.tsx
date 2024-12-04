@@ -1,8 +1,10 @@
 import { Outlet } from 'react-router-dom';
 import AuthLayout from '../../layouts/auth/auth-layout';
-import Login from '../../pages/auth/login/login';
-import Register from '../../pages/auth/register/register';
 import { ROUTES } from '../route-path';
+import { lazy } from 'react';
+
+const LoginPage = lazy(() => import('../../pages/auth/login/login'));
+const RegisterPage = lazy(() => import('../../pages/auth/register/register'));
 
 export const authRoutes = {
   path: ROUTES.AUTH.ROOT,
@@ -14,15 +16,15 @@ export const authRoutes = {
   children: [
     {
       path: '',
-      element: <Login />,
+      element: <LoginPage />,
     },
     {
       path: ROUTES.AUTH.LOGIN,
-      element: <Login />,
+      element: <LoginPage />,
     },
     {
       path: ROUTES.AUTH.REGISTER,
-      element: <Register />,
+      element: <RegisterPage />,
     },
   ],
 };

@@ -4,10 +4,11 @@ type UseClickOutSideProps = {
   ref: RefObject<HTMLElement>;
   refSec?: RefObject<HTMLElement>;
   handler: (event: MouseEvent) => void;
+  condition?: boolean;
 };
 
 const useClickOutSide = (props: UseClickOutSideProps) => {
-  const { ref, handler, refSec } = props;
+  const { ref, handler, refSec, condition = true } = props;
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -17,7 +18,10 @@ const useClickOutSide = (props: UseClickOutSideProps) => {
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    if (condition) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };

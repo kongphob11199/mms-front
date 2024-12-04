@@ -1,6 +1,7 @@
 {
-    "MENU":{
-        "DASHBOARD":"แดชบอร์ด"
-        
-    }
+  "MENU": {
+    "DASHBOARD": "แดชบอร์ด",
+    "HOME": "หน้าหลัก",
+    "SETTINGS": "ตั้งค่า"
+  }
 }
