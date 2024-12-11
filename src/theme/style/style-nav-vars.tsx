@@ -7,7 +7,7 @@ export const navVars = (colors: ThemeColors) => {
   const closeMenu = '100px';
 
   const closeMenu_sm = '-300px';
-  const closeMenu_xs = '100%';
+  const closeMenu_xs = '-100%';
 
   const height = '57px';
 

@@ -50,7 +50,8 @@ const LoginSection = () => {
         .catch((error) => {
           setDataLogin((prev) => ({ username: '', password: '' }));
           const msg = ['NOTFOUND_USER_LOGIN', 'INVALID_PASSWORD_LOGIN'];
-          const msgError = msg.some((item) => item === error.message) ? error.message : 'ERROR';
+          // const msgError = msg.some((item) => item === error.message) ? error.message : 'ERROR';
+          const msgError = error.message;
           openMultiAlert({
             component: <Typography>{t(`LOGIN.MESSAGE.${msgError}`)}</Typography>,
           });
