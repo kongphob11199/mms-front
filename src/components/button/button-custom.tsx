@@ -2,6 +2,7 @@ import { Button, ButtonProps, styled } from '@mui/material';
 import { useThemeCustom } from '../../theme/theme-context';
 import { adjustColor, adjustOpacity } from '../../utils/color-utils';
 import { ThemeColorsType, ThemeColosStatus } from '../../theme/color';
+import { useCallback } from 'react';
 
 type BtnShadowProps = 'btn-shadow' | 'btn-shadow-better' | 'btn-shadow-default' | 'none';
 
@@ -9,25 +10,32 @@ export type ButtonCustomProps = ButtonProps & {
   btnshadow?: BtnShadowProps;
   typecolor?: ThemeColorsType;
   status?: ThemeColosStatus | 'default';
+  btntype?: 'contained' | 'outlined' | 'text' | 'soft';
 };
 
-const ButtomCustomDefault = (props: ButtonCustomProps) => (
-  <Button variant="contained" status={'default'} {...props}>
-    {props.children}
-  </Button>
-);
+const ButtomCustomDefault = (props: ButtonCustomProps) => {
+  const renderPropsButton = useCallback(() => {
+    const newVariant = props?.variant ? props?.variant : props?.btntype && props?.btntype !== 'soft' ? props?.btntype : 'contained';
+    return { ...props, variant: newVariant };
+  }, [props]);
+  return (
+    <Button status="default" {...renderPropsButton()}>
+      {props.children}
+    </Button>
+  );
+};
 
-const ButtonCustom = styled(ButtomCustomDefault)(({ theme, btnshadow, typecolor, status = 'default', variant = 'contained' }) => {
+const ButtonCustom = styled(ButtomCustomDefault)(({ theme, btnshadow, typecolor, status = 'default', variant = 'contained', btntype }) => {
   const { colors } = useThemeCustom();
 
   const colorTypeBtn = typecolor || 'primary';
   const colorStatus = status === 'default' || !status ? colors[colorTypeBtn] : colors.status[status];
   const colorBtn = colorStatus;
 
-  const styleBtn = variant !== 'contained' ? { ':hover': {} } : renderBtnShadow(colorBtn, btnshadow);
-
+  const styleBtn = variant !== 'contained' ? { ':hover': {} } : renderBtnShadow(colorBtn, btnshadow || 'none', variant);
+  console.log('222 styleBtn', styleBtn, variant, variant !== 'contained');
   return {
-    transition: 'all 0.3s ease-in-out',
+    transition: 'background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
     color: colors.text,
     '&.MuiButtonBase-root.MuiButton-root.MuiButton-contained': {
       backgroundColor: colorBtn,
@@ -45,6 +53,10 @@ const ButtonCustom = styled(ButtomCustomDefault)(({ theme, btnshadow, typecolor,
     ':hover': {
       '&.MuiButtonBase-root.MuiButton-root.MuiButton-outlined': {
         backgroundColor: adjustOpacity(colorBtn, 0.15),
+        borderWidth: '2px',
+      },
+      '&.MuiButtonBase-root.MuiButton-root.MuiButton-text': {
+        backgroundColor: adjustOpacity(colorBtn, 0.15),
       },
       ...styleBtn[':hover'],
     },
@@ -53,28 +65,34 @@ const ButtonCustom = styled(ButtomCustomDefault)(({ theme, btnshadow, typecolor,
 
 export default ButtonCustom;
 
-const renderBtnShadow = (color: string, btnShadow?: BtnShadowProps) => {
+const renderBtnShadow = (color: string, btnShadow: BtnShadowProps, variant: string) => {
   const styleBtnShadow = {
     boxShadow: ` 0 8px 16px 0 ${adjustOpacity(color, 0.3)}`,
     ':hover': {
-      backgroundColor: adjustColor(color, -30),
-      boxShadow: 'none',
+      [`&.MuiButtonBase-root.MuiButton-root.MuiButton-${variant}`]: {
+        backgroundColor: adjustColor(color, -30),
+        boxShadow: 'none',
+      },
     },
   };
 
   const styleBtnShadowBetter = {
     boxShadow: ` 0 8px 16px 0 ${adjustOpacity(color, 0.3)}`,
     ':hover': {
-      backgroundColor: adjustColor(color, 10),
-      boxShadow: ` 0 8px 32px 0 ${adjustOpacity(color, 0.5)}`,
+      [`&.MuiButtonBase-root.MuiButton-root.MuiButton-${variant}`]: {
+        backgroundColor: adjustColor(color, 10),
+        boxShadow: ` 0 8px 32px 0 ${adjustOpacity(color, 0.5)}`,
+      },
     },
   };
 
   const styleBtnShadowDefault = {
     boxShadow: ``,
     ':hover': {
-      backgroundColor: adjustColor(color, -30),
-      boxShadow: ` 0 4px 8px 0 ${adjustOpacity(adjustColor(color, -30), 0.3)}`,
+      [`&.MuiButtonBase-root.MuiButton-root.MuiButton-${variant}`]: {
+        backgroundColor: adjustColor(color, -30, 'hex'),
+        boxShadow: ` 0 4px 8px 0 ${adjustOpacity(adjustColor(color, -30), 0.3)}`,
+      },
     },
   };
 

@@ -76,8 +76,14 @@ const ProfileDesktopBox = () => {
       <CardCustom backDropBlur sx={{ borderRadius: '6px' }}>
         <Box width="250px" height="fit-content" maxHeight="300px" padding="16px">
           <Box>
-            <Box>
-              <ButtonCustom variant="outlined" typecolor="secondary">
+            <Box display="flex" flexDirection="column" gap="8px">
+              <ButtonCustom btnshadow="btn-shadow-default" typecolor="primary">
+                Logout
+              </ButtonCustom>
+              <ButtonCustom btntype="text" typecolor="secondary">
+                Logout
+              </ButtonCustom>
+              <ButtonCustom btntype="outlined" typecolor="secondary">
                 Logout
               </ButtonCustom>
             </Box>

@@ -28,6 +28,8 @@ const LoginSection = () => {
   const [errorMsg, setErrorMsg] = useState({ username: '', password: '' });
   const [isHidePassword, setIsHidePassword] = useState<boolean>(true);
 
+  const [textError, setTextError] = useState('');
+
   const handleChangeDataLogin = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDataLogin((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     setErrorMsg((prev) => ({ ...prev, [e.target.name]: '' }));
@@ -50,8 +52,8 @@ const LoginSection = () => {
         .catch((error) => {
           setDataLogin((prev) => ({ username: '', password: '' }));
           const msg = ['NOTFOUND_USER_LOGIN', 'INVALID_PASSWORD_LOGIN'];
-          // const msgError = msg.some((item) => item === error.message) ? error.message : 'ERROR';
-          const msgError = error.message;
+          const msgError = msg.some((item) => item === error.message) ? error.message : 'ERROR';
+          setTextError(JSON.stringify(error));
           openMultiAlert({
             component: <Typography>{t(`LOGIN.MESSAGE.${msgError}`)}</Typography>,
           });
@@ -106,6 +108,7 @@ const LoginSection = () => {
               {t('LOGIN.BUTTON.LOGIN')}
             </ButtonCustom>
           </Box>
+          <Box marginTop="16px">{textError}</Box>
         </CardCustom>
       </Box>
     </Box>
