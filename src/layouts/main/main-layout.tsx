@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import { useThemeCustom } from '../../theme/theme-context';
 import MainNavMenu from './main-nav-menu';
 import MainNavProfile from './main-nav-profile';
-import { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import useWindowSize from '../../utils/use-windowsize';
 import ScrollbarCustom from '../../components/scrollbar/scrollbar-custom';
 
@@ -13,14 +13,25 @@ type MainLayoutProps = {
 const MainLayout = (props: MainLayoutProps) => {
   const { colors } = useThemeCustom();
   const { width } = useWindowSize();
+  const widthRef = useRef(width);
+
+  const [loading, setLoading] = useState(true);
 
   const [isOpenNav, setIsOpenNav] = useState(false);
 
   useLayoutEffect(() => {
-    if (!(width && width < 1200)) {
-      setIsOpenNav(true);
-    }
+    const onLazyLoad = () => {
+      if (!(widthRef.current && Number(widthRef.current) < 1200)) {
+        setIsOpenNav(true);
+      }
+      setLoading(false);
+    };
+    onLazyLoad();
   }, []);
+
+  if (loading) {
+    return <Box width="100vw" height="100vh" bgcolor={colors.bg}></Box>;
+  }
 
   return (
     <>

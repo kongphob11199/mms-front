@@ -1,6 +1,5 @@
 import { AuthServiceClient } from '../../proto/AuthServiceClientPb';
-import { EmptyAuth, LoginRequest, LoginResponse } from '../../proto/auth_pb';
-import { StatusResponse } from '../../proto/enum_pb';
+import { AuthResponse, EmptyAuth, LoginRequest, LoginResponse } from '../../proto/auth_pb';
 import { EnvoyURL, metaDataGrpc } from './grpc.gapi';
 
 const client = new AuthServiceClient(EnvoyURL);
@@ -17,7 +16,7 @@ export const authGRPC = {
       });
     });
   },
-  checkAuth: (): Promise<StatusResponse.AsObject> => {
+  checkAuth: (): Promise<AuthResponse.AsObject> => {
     return new Promise((resolve, reject) => {
       const metadata = metaDataGrpc();
       const req = new EmptyAuth();

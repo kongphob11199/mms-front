@@ -66,6 +66,10 @@ export interface ThemeColors {
   gray: string;
   gray_100: string;
   //
+  border: {
+    gray: string;
+  };
+  //
   status: Record<ThemeColosStatus, string>;
 }
 
@@ -153,6 +157,12 @@ const grayColors = {
   gray_100: '#757575',
 };
 
+const borderColor = {
+  border: {
+    gray: '#8d8d8d4f',
+  },
+};
+
 const statusColors = {
   status: {
     success: '#15dd1d',
@@ -176,6 +186,7 @@ export const darkTheme: ThemeColors = {
   ...errorColors,
   ...grayColors,
   ...statusColors,
+  ...borderColor,
 };
 
 const bgColorsLight = {

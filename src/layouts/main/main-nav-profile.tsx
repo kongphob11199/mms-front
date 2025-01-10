@@ -1,7 +1,6 @@
 import { Box, IconButton, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useThemeCustom } from '../../theme/theme-context';
-import { adjustOpacity } from '../../utils/color-utils';
 import AvatarCustom from '../../components/avatar/avatar-custom';
 import IconButtonCustom from '../../components/button/icon-button-custom';
 import CardCustom from '../../components/card/card-custom';
@@ -77,13 +76,13 @@ const ProfileDesktopBox = () => {
         <Box width="250px" height="fit-content" maxHeight="300px" padding="16px">
           <Box>
             <Box display="flex" flexDirection="column" gap="8px">
-              <ButtonCustom btnshadow="btn-shadow-default" typecolor="primary">
-                Logout
-              </ButtonCustom>
-              <ButtonCustom btntype="text" typecolor="secondary">
-                Logout
-              </ButtonCustom>
-              <ButtonCustom btntype="outlined" typecolor="secondary">
+              <Box width="100%">
+                <Typography fontSize="16px">name last</Typography>
+                <Typography fontSize="13px" lineHeight="0.5" textAlign="right">
+                  role
+                </Typography>
+              </Box>
+              <ButtonCustom btntype="soft" typecolor="secondary">
                 Logout
               </ButtonCustom>
             </Box>

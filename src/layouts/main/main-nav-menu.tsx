@@ -105,7 +105,13 @@ const MainNavMenu = (props: MainNavMenuProps) => {
         <Box display="flex" flexDirection="column" gap="8px">
           {Object.entries(MAIN_MENU).map(([key, value]) => {
             return (
-              <ListMenuItem key={key} className={`nav-menu-item ${value.path === menuCurrent ? 'menu-item-active' : ''}`} variant="text" onClick={() => handleGotoPath(value.path)}>
+              <ListMenuItem
+                key={key}
+                className={`nav-menu-item ${value.path === menuCurrent ? 'menu-item-active' : ''}`}
+                variant="text"
+                typecolor="secondary"
+                onClick={() => handleGotoPath(value.path)}
+              >
                 {value.icon({ width: '30px', height: '30px', fill: colors.primary_300 })}
                 <Typography className="text-overflow-ellipsis" width="100%">
                   {t(`${value.text}`)}
@@ -130,16 +136,16 @@ const ListMenuItem = styled(ButtonCustom)(({ theme }) => {
     alignItems: 'center',
     gap: '8px 16px',
     flexDirection: 'row',
+    height: 'fit-content',
     '.MuiTypography-root': {
       textAlign: 'left',
+      color: colors.white,
     },
     svg: {
       width: '30px',
       height: '30px',
       fill: colors.primary_300,
     },
-    transition: 'background-color 0.15s ease-in-out',
-    cursor: 'pointer',
     ':hover': {
       backgroundColor: adjustOpacity(colors.primary_500, 0.15),
     },

@@ -33,12 +33,20 @@ const ButtonCustom = styled(ButtomCustomDefault)(({ theme, btnshadow, typecolor,
   const colorBtn = colorStatus;
 
   const styleBtn = variant !== 'contained' ? { ':hover': {} } : renderBtnShadow(colorBtn, btnshadow || 'none', variant);
-  console.log('222 styleBtn', styleBtn, variant, variant !== 'contained');
+
   return {
-    transition: 'background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+    transition: 'background-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out',
     color: colors.text,
+    fontWeight: 500,
+    cursor: 'pointer',
+    height: '40px',
     '&.MuiButtonBase-root.MuiButton-root.MuiButton-contained': {
       backgroundColor: colorBtn,
+      ...(btntype === 'soft' && {
+        color: colorBtn,
+        backgroundColor: adjustOpacity(colorBtn, 0.15),
+        boxShadow: `none`,
+      }),
     },
     '&.MuiButtonBase-root.MuiButton-root.MuiButton-contained.Mui-disabled': {
       backgroundColor: colors.disabled,
@@ -46,11 +54,23 @@ const ButtonCustom = styled(ButtomCustomDefault)(({ theme, btnshadow, typecolor,
     },
     '&.MuiButtonBase-root.MuiButton-root.MuiButton-outlined': {
       backgroundColor: 'transparent',
+      transition: 'background-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, border-width 0.15s ease-in-out',
       borderColor: colorBtn,
+      color: colorBtn,
+      boxSizing: 'border-box',
+    },
+    '&.MuiButtonBase-root.MuiButton-root.MuiButton-text': {
+      backgroundColor: 'transparent',
       color: colorBtn,
     },
     ...styleBtn,
     ':hover': {
+      '&.MuiButtonBase-root.MuiButton-root.MuiButton-contained': {
+        ...(btntype === 'soft' && {
+          backgroundColor: adjustOpacity(colorBtn, 0.25),
+          boxShadow: `none`,
+        }),
+      },
       '&.MuiButtonBase-root.MuiButton-root.MuiButton-outlined': {
         backgroundColor: adjustOpacity(colorBtn, 0.15),
         borderWidth: '2px',

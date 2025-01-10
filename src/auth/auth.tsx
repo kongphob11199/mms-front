@@ -21,11 +21,16 @@ const Auth = (props: AuthProps) => {
         navigate(ROUTES_PATH.AUTH.LOGIN);
       }
     } else {
-      await authGRPC.checkAuth().catch((error) => {
-        logout();
-        navigate(ROUTES_PATH.AUTH.LOGIN);
-        return;
-      });
+      await authGRPC
+        .checkAuth()
+        .then((res) => {
+          console.log('222 check auth res', res);
+        })
+        .catch((error) => {
+          logout();
+          navigate(ROUTES_PATH.AUTH.LOGIN);
+          return;
+        });
       if (pathPassToken.some((item) => item === location.pathname)) {
         navigate(ROUTES_PATH.MAIN.HOME);
       }

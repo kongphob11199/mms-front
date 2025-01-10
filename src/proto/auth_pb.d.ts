@@ -1,6 +1,7 @@
 import * as jspb from 'google-protobuf'
 
 import * as proto_enum_pb from '../proto/enum_pb'; // proto import: "proto/enum.proto"
+import * as proto_user_pb from '../proto/user_pb'; // proto import: "proto/user.proto"
 
 
 export class EmptyAuth extends jspb.Message {
@@ -58,6 +59,26 @@ export namespace LoginResponse {
   export type AsObject = {
     token: string,
     response: proto_enum_pb.Response,
+  }
+}
+
+export class AuthResponse extends jspb.Message {
+  getUser(): proto_user_pb.User | undefined;
+  setUser(value?: proto_user_pb.User): AuthResponse;
+  hasUser(): boolean;
+  clearUser(): AuthResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): AuthResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: AuthResponse): AuthResponse.AsObject;
+  static serializeBinaryToWriter(message: AuthResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): AuthResponse;
+  static deserializeBinaryFromReader(message: AuthResponse, reader: jspb.BinaryReader): AuthResponse;
+}
+
+export namespace AuthResponse {
+  export type AsObject = {
+    user?: proto_user_pb.User.AsObject,
   }
 }
 
